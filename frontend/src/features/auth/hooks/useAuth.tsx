@@ -12,7 +12,14 @@ const Ctx = createContext<AuthCtx | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthResponse["user"] | null>(() => {
     const raw = localStorage.getItem("user");
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+
+    try {
+      return JSON.parse(raw) as AuthResponse["user"];
+    } catch {
+      localStorage.removeItem("user");
+      return null;
+    }
   });
 
   const login = (data: AuthResponse) => {
