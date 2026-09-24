@@ -11,5 +11,5 @@ export interface RegisterDTO {
 
 export interface AuthResponse {
   token: string;
-  user: { id: string; name: string; email: string };
+  user: { id: string; name: string; email: string; isPaippaVerified: boolean };
 }
