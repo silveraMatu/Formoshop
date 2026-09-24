@@ -60,11 +60,11 @@ export function RegisterForm() {
         Crear cuenta
       </Button>
 
-      <p className="text-center text-sm text-neutral-500">
+      <p className="app-form__hint text-center text-sm">
         ¿Ya tenés cuenta?{" "}
         <Link
           to="/login"
-          className="font-medium text-neutral-900 hover:underline dark:text-white"
+          className="app-form__link font-semibold hover:underline"
         >
           Iniciá sesión
         </Link>

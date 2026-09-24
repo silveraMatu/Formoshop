@@ -1,7 +1,155 @@
 @import "tailwindcss";
 
+:root {
+  --ink: #080b12;
+  --ink-muted: #526071;
+  --blue: #08a8e8;
+  --blue-deep: #0879b0;
+  --blue-pale: #e8f7fd;
+  --blue-line: #a7ddf2;
+  --surface: #ffffff;
+  --surface-raised: #f7fcff;
+  --shadow: #080b12;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--blue-pale);
+}
+
+:root[data-theme="dark"] {
+  --ink: #f4fbff;
+  --ink-muted: #a7bdca;
+  --blue: #1dbaf2;
+  --blue-deep: #73d8ff;
+  --blue-pale: #09131d;
+  --blue-line: #1c526b;
+  --surface: #101c27;
+  --surface-raised: #152633;
+  --shadow: #000000;
+}
+
 html,
 body,
 #root {
   height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--blue-pale);
+  color: var(--ink);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.auth-layout {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, transparent 0 48%, rgb(8 168 232 / 7%) 48% 50%, transparent 50%),
+    var(--blue-pale);
+}
+
+.auth-layout__toolbar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.app-card {
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+.app-card__title {
+  color: var(--ink);
+}
+
+.app-card__subtitle,
+.app-form__hint {
+  color: var(--ink-muted);
+}
+
+.app-form__link {
+  color: var(--blue-deep);
+}
+
+.app-button {
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--surface);
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.app-button:hover {
+  background: var(--blue);
+  color: #031019;
+  transform: translateY(-1px);
+}
+
+.app-button:focus-visible,
+.theme-toggle:focus-visible,
+.app-input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.app-input__label {
+  color: var(--ink);
+}
+
+.app-input {
+  border: 2px solid var(--blue-line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.app-input::placeholder {
+  color: var(--ink-muted);
+}
+
+.app-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgb(8 168 232 / 18%);
+}
+
+.app-password-toggle {
+  color: var(--blue-deep);
+}
+
+.app-password-toggle:hover {
+  color: var(--ink);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.theme-toggle:hover {
+  background: var(--blue);
+  color: #031019;
+  transform: rotate(12deg);
 }

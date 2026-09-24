@@ -32,7 +32,7 @@ export function LoginForm() {
       <Input
         label="Email"
         type="email"
-        placeholder="tu@email.com"
+        placeholder="ejemplo@email.com"
         error={errors.email?.message}
         {...register("email")}
       />
@@ -49,11 +49,11 @@ export function LoginForm() {
         Iniciar sesión
       </Button>
 
-      <p className="text-center text-sm text-neutral-500">
+      <p className="app-form__hint text-center text-sm">
         ¿No tenés cuenta?{" "}
         <Link
           to="/register"
-          className="font-medium text-neutral-900 hover:underline dark:text-white"
+          className="app-form__link font-semibold hover:underline"
         >
           Registrate
         </Link>

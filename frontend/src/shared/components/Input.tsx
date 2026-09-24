@@ -13,7 +13,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       <div className="space-y-1.5">
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+          className="app-input__label block text-sm font-semibold"
         >
           {label}
         </label>
@@ -22,10 +22,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           ref={ref}
           {...rest}
           className={cn(
-            "w-full rounded-md border bg-white px-3 py-2 text-sm",
-            "border-neutral-200 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white",
-            "placeholder:text-neutral-400",
-            "focus:outline-none focus:ring-2 focus:ring-neutral-400",
+            "app-input w-full px-3 py-2 text-sm",
             error && "border-red-500 focus:ring-red-400",
             className
           )}

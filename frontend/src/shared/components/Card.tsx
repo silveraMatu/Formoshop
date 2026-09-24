@@ -12,8 +12,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "w-full max-w-md rounded-xl border border-neutral-200 bg-white p-8 shadow-sm",
-        "dark:border-neutral-800 dark:bg-neutral-950",
+        "app-card w-full max-w-md p-8",
         className
       )}
     >
