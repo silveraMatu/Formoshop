@@ -1,6 +1,10 @@
 import { Router } from "express";
-import { createProductController } from "./create-products/createProduct.controller.ts";
+import getProductsRouter from "./get-products/getProducts.routes.ts";
+import createProductRouter from "./create-products/createProduct.routes.ts";
+import getProductByIdRouter from "./get-product-by-id/getProductById.routes.ts";
 
-const productRouter = Router()
+export const productRouter = Router()
 
-productRouter.use(createProductController)
+productRouter.use(createProductRouter)
+productRouter.use(getProductsRouter)
+productRouter.use(getProductByIdRouter)

@@ -5,6 +5,6 @@ import { productSchema } from './createProduct.schema.ts';
 
 const createProductRouter = Router();
 
-createProductRouter.post('/product', validate(productSchema), createProductController);
+createProductRouter.post('/', validate(productSchema), createProductController);
 
 export default createProductRouter;
