@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { nullable } from 'zod';
-import { tr } from 'zod/locales';
 
-enum categoryEnum {"Agotado",  "Disponible"}
+enum statusEnum {"Agotado" = "Agotado", "Disponible" = "Disponible"}
 
 interface IProductEntity {
   id: number;
@@ -10,7 +8,7 @@ interface IProductEntity {
   title: string;
   price: number
   category: number[]
-  status: categoryEnum
+  status: statusEnum
   description?: string | undefined
   stock: number
   tag?: string[]
@@ -32,21 +30,21 @@ export class Product implements IProductEntity {
   @Column({type: "decimal"})
   price!: number
 
-  @Column({type: 'array'})
+  @Column({type: 'int', array: true})
   category!: number[]
 
   @Column({type: "enum"})
-  status!: categoryEnum
+  status!: statusEnum
 
-  @Column({type: "enum"})
-  stock!: categoryEnum
+  @Column({type: "number"})
+  stock!: number
 
-  @Column({type: "string", nullable:true, default:null})
+  @Column({type: "varchar", nullable:true, default:null})
   description?: string
 
-  @Column({type: "array", nullable:true, default:null})
+  @Column({type: "varchar", array:true, nullable:true, default:null})
   tag?: string[]
 
-  @Column({type: "string"})
+  @Column({type: "varchar"})
   ubicacion!: string
 }
