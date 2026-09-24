@@ -11,5 +11,13 @@ export interface RegisterDTO {
 
 export interface AuthResponse {
   token: string;
-  user: { id: string; name: string; email: string };
+  user: { id: number; name: string; email: string };
+}
+
+export interface BackendAuthResponse {
+  status?: string;
+  statusCode?: number;
+  status_code?: number;
+  message: string;
+  data: AuthResponse["user"];
 }

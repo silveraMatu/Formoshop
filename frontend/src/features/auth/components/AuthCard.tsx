@@ -13,10 +13,10 @@ export function AuthCard({
   return (
     <Card>
       <div className="mb-6 space-y-1 text-center">
-        <h1 className="text-xl font-semibold text-neutral-900 dark:text-white">
+        <h1 className="app-card__title text-xl font-semibold">
           {title}
         </h1>
-        {subtitle && <p className="text-sm text-neutral-500">{subtitle}</p>}
+        {subtitle && <p className="app-card__subtitle text-sm">{subtitle}</p>}
       </div>
       {children}
     </Card>

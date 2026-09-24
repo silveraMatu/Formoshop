@@ -3,7 +3,7 @@ import { AuthLayout } from "../layouts/AuthLayout";
 import { ProtectedRoute } from "../layouts/ProtectedRoute";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
-import { DashboardPage } from "../pages/DashboardPage";
+import { DashboardPage } from "@/features/dashboard/pages/DashboardPage";
 
 export const router = createBrowserRouter([
   {
