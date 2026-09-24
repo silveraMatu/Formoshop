@@ -4,9 +4,10 @@ import { Package, Wrench, X } from "lucide-react";
 interface AddItemModalProps {
   open: boolean;
   onClose: () => void;
+  onSelect: (type: "product" | "service") => void;
 }
 
-export function AddItemModal({ open, onClose }: AddItemModalProps) {
+export function AddItemModal({ open, onClose, onSelect }: AddItemModalProps) {
   useEffect(() => {
     if (!open) return;
 
@@ -50,15 +51,15 @@ export function AddItemModal({ open, onClose }: AddItemModalProps) {
         </div>
 
         <div className="dashboard-modal__options">
-          <button type="button" className="dashboard-item-option" onClick={onClose}>
+          <button type="button" className="dashboard-item-option" onClick={() => onSelect("product")}>
             <Package size={30} strokeWidth={1.7} />
             <span>Producto</span>
             <small>Algo que vendes</small>
           </button>
-          <button type="button" className="dashboard-item-option" onClick={onClose}>
+          <button type="button" className="dashboard-item-option dashboard-item-option--unavailable" onClick={() => onSelect("service")}>
             <Wrench size={30} strokeWidth={1.7} />
             <span>Servicio</span>
-            <small>Algo que ofreces</small>
+            <small>Próximamente</small>
           </button>
         </div>
       </section>
