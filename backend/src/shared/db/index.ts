@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
 import { User } from './entity/User/user.ts';
+import { Product } from './entity/Product/product.ts';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   dropSchema: true,
   logging: false,
-  entities: [User],
+  entities: [User, Product],
 });
 
 export const connectDB = async () => {

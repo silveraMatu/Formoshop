@@ -28,6 +28,7 @@ export const errorHandler = (
     })
   }
 
+  console.log(err)
   res.status(500).json({
     status: "fail",
     status_code: 500,
