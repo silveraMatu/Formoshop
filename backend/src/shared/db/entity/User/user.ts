@@ -5,6 +5,7 @@ interface IUserEntity {
   name: string;
   email: string;
   password_hash: string;
+  isPaippaVerified: boolean;
 }
 
 @Entity()
@@ -18,6 +19,11 @@ export class User implements IUserEntity {
   @Column({ type: "varchar", unique: true })
   email!: string;
 
-  @Column({type: "varchar"})
+  @Column({ type: "varchar"})
   password_hash!: string;
+
+    @Column({ type: "boolean", default: false })
+    isPaippaVerified!: boolean;
+
 }
+
