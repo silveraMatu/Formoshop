@@ -66,4 +66,7 @@ export class Product implements IProductEntity {
 
   @Column({ type: 'varchar', length: 255 })
   ubicacion!: string;
+
+  @Column({ type: 'varchar', default: 'vendor' })
+  role!: string; // Podrá ser 'vendor' o 'paippa_admin'
 }
