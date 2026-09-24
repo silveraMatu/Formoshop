@@ -13,8 +13,7 @@ import { productRouter } from './features/product/products.route.ts';
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(
-  cors({
+app.use(cors({
     origin: '*',
   }),
 );
