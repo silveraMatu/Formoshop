@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(pinoHttp({ logger }));
 
 app.use('/api', authRouter);
-app.use('/api', productRouter);
+app.use('/api/products', productRouter);
 
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'Ok' });
