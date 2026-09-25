@@ -24,6 +24,15 @@ export const authenticateToken = (
     const secret = process.env.SECRET!
     const decoded = jwt.verify(token, secret) as AuthUserPayload;
 
+    if (typeof decoded.id !== 'number' || !decoded.role) {
+      res.status(403).json({
+        status: 'Error',
+        status_code: 403,
+        message: 'Token inválido: falta id o role',
+      });
+      return;
+    }
+
     req.user = decoded;
     next();
 

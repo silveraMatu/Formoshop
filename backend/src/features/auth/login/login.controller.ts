@@ -25,7 +25,7 @@ export const loginController = async (
         throw new UnauthorizedError("Email o contraseña incorrectos")
     }
 
-    const token = createToken(user.id, user.email);
+    const token = createToken(user.id, user.email, user.role);
 
     const { password_hash, ...publicUser } = user;
 
