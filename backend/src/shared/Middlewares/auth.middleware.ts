@@ -19,7 +19,7 @@ export const authenticateToken = (
   }
 
   try {
-    const secret = process.env.JWT_SECRET || 'secret_fallback';
+    const secret = process.env.SECRET || 'secret';
     const decoded = jwt.verify(token, secret) as AuthUserPayload;
 
     req.user = decoded;
