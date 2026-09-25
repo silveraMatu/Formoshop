@@ -12,10 +12,11 @@ import {
 import { Card } from "@/shared/components/Card";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
 import { ProductCard } from "@/features/marketplace/components/ProductCard";
-import type { Product } from "@/features/marketplace/components/ProductCard";
+import type { BaseProduct } from "@/features/marketplace/components/ProductCard";
 import heroImage from "@/assets/hero.png";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
-const featuredProducts: Product[] = [
+const featuredProducts: BaseProduct[] = [
   {
     id: 1,
     title: "Miel pura de monte",
@@ -86,6 +87,8 @@ const benefits = [
 ];
 
 export function LandingPage() {
+  const { user, logout } = useAuth();
+
   return (
     <div className="min-h-screen antialiased text-neutral-900 dark:text-neutral-50 selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-100">
       {/* NAVBAR FLOTANTE DE CRISTAL */}
@@ -123,12 +126,21 @@ export function LandingPage() {
 
           <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
-            <Link
-              to="/login"
-              className="hidden sm:inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-neutral-700 dark:text-neutral-200 hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150 active:scale-[0.97]"
-            >
-              Iniciar sesión
-            </Link>
+            {user ? (
+              <button
+                onClick={logout}
+                className="hidden sm:inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-150 active:scale-[0.97]"
+              >
+                Cerrar sesión
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden sm:inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-neutral-700 dark:text-neutral-200 hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150 active:scale-[0.97]"
+              >
+                Iniciar sesión
+              </Link>
+            )}
             <Link
               to="/catalogo"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-sm transition-all duration-150 active:scale-[0.97]"
@@ -339,12 +351,21 @@ export function LandingPage() {
             >
               Productores
             </a>
-            <Link
-              to="/login"
-              className="hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-150"
-            >
-              Iniciar sesión
-            </Link>
+            {user ? (
+              <button
+                onClick={logout}
+                className="hover:text-red-600 dark:hover:text-red-400 transition-colors duration-150"
+              >
+                Cerrar sesión
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-150"
+              >
+                Iniciar sesión
+              </Link>
+            )}
           </nav>
 
           <p className="text-xs text-neutral-500 dark:text-neutral-500">

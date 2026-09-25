@@ -14,10 +14,10 @@ export function useLogin() {
     try {
       const res = await loginUser(data);
       login(res);
-      return true;
+      return res.user;
     } catch (e) {
       setError((e as Error).message);
-      return false;
+      return null;
     } finally {
       setLoading(false);
     }

@@ -1,11 +1,16 @@
 import type { ReactNode } from "react";
 import { DashboardSidebar } from "./DashboardSidebar";
 
-export function DashboardShell({ children }: { children: ReactNode }) {
+interface DashboardShellProps {
+  children: ReactNode;
+  onAddClick?: () => void;
+}
+
+export function DashboardShell({ children, onAddClick }: DashboardShellProps) {
   return (
     <main className="dashboard-page">
       <div className="dashboard-frame">
-        <DashboardSidebar />
+        <DashboardSidebar onAddClick={onAddClick} />
         <section className="dashboard-content">{children}</section>
       </div>
     </main>

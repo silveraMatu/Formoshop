@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, ShoppingCart, CheckCircle, Package, X, Trash2 } from "lucide-react";
 import type { Product } from "@/features/dashboard/types/product";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
-import { CartProvider, useCart } from "../hooks/CartContext"; // Ajustá la ruta si lo guardaste en otro lado
+import { CartProvider, useCart } from "../hooks/CartContext"; 
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { ChatWidget } from "@/features/chat/components/ChatWidget";
+import { ProductCard } from "@/features/marketplace/components/ProductCard";
 
 // --- COMPONENTE DEL CATÁLOGO (ahora usa el Context) ---
 function CatalogContent() {
@@ -11,6 +15,7 @@ function CatalogContent() {
   const [loading, setLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart, removeFromCart, cartTotal, cartCount } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchPublicProducts = async () => {
@@ -38,12 +43,12 @@ function CatalogContent() {
       {/* HEADER */}
       <header className="sticky top-0 z-20 bg-white/65 dark:bg-neutral-900/60 backdrop-blur-xl backdrop-saturate-150 border-b border-white/40 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 bg-neutral-900 dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-neutral-900 font-bold shadow-sm">
               F
             </div>
             <span className="text-xl font-bold text-neutral-900 dark:text-neutral-50">FormoShop</span>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
@@ -89,38 +94,12 @@ function CatalogContent() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <article key={product.id} className="bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl overflow-hidden hover:bg-white/70 dark:hover:bg-neutral-800/60 hover:shadow-xl transition-all duration-300 group flex flex-col">
-                <div className="h-48 bg-neutral-100/60 dark:bg-neutral-800/60 relative overflow-hidden flex items-center justify-center rounded-xl m-2">
-                  {product.image ? (
-                    <img src={product.image} alt={product.title} className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" />
-                  ) : (
-                    <Package size={40} className="text-neutral-300 dark:text-neutral-600" />
-                  )}
-                  {product.isPaippa && (
-                    <div className="absolute top-2 left-2 bg-black/5 dark:bg-white/10 backdrop-blur-sm text-emerald-700 dark:text-emerald-300 text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1 border border-emerald-500/20">
-                      <CheckCircle size={12} />
-                      Feria PAIPPA
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-4 flex flex-col flex-grow">
-                  <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-50 mb-1 leading-tight">
-                    {product.title}
-                  </h3>
-                  <div className="mt-auto pt-4 flex items-center justify-between">
-                    <span className="font-bold text-xl text-neutral-900 dark:text-neutral-50">
-                      ${Number(product.price).toFixed(2)}
-                    </span>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 py-2 rounded-xl text-sm font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-150 active:scale-[0.98] shadow-sm"
-                    >
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-              </article>
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                onAction={() => addToCart(product)} 
+                actionLabel="Agregar" 
+              />
             ))}
           </div>
         )}
@@ -181,6 +160,7 @@ function CatalogContent() {
           </div>
         </div>
       )}
+      {user?.role === "CLIENT" && <ChatWidget />}
     </div>
   );
 }

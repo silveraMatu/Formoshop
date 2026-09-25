@@ -193,6 +193,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
             </div>
           ) : (
             <label
+              htmlFor="product-image-upload"
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -224,6 +225,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
             </label>
           )}
           <input
+            id="product-image-upload"
             ref={fileInputRef}
             type="file"
             accept="image/*"

@@ -5,6 +5,7 @@ interface AuthCtx {
   user: AuthResponse["user"] | null;
   login: (data: AuthResponse) => void;
   logout: () => void;
+  getRedirectPath: () => string;
 }
 
 const Ctx = createContext<AuthCtx | null>(null);
@@ -34,7 +35,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  return <Ctx.Provider value={{ user, login, logout }}>{children}</Ctx.Provider>;
+  const getRedirectPath = () => {
+    if (!user) return "/login";
+    return user.role === "PRODUCER" ? "/dashboard" : "/catalogo";
+  };
+
+  return <Ctx.Provider value={{ user, login, logout, getRedirectPath }}>{children}</Ctx.Provider>;
 }
 
 export function useAuth() {

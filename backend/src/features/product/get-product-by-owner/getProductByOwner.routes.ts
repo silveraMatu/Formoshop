@@ -6,7 +6,7 @@ import { getProductsByOwnerController } from './getProductByOwner.controller.ts'
 export const getProductsByOwnerRouter = Router();
 
 getProductsByOwnerRouter.get(
-  '/',
+  '/owner',
   authenticateToken,
   authorizeRoles('PRODUCER', 'ADMIN'),
   getProductsByOwnerController,

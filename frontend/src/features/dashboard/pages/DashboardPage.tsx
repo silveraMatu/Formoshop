@@ -1,7 +1,5 @@
 import { useCallback, useState } from "react";
-import { Plus } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/shared/components/Button";
 import { AddItemModal } from "../components/AddItemModal";
 import { DashboardShell } from "../components/DashboardShell";
 import { ProductForm } from "../components/ProductForm";
@@ -32,7 +30,7 @@ export function DashboardPage() {
   };
 
   return (
-    <DashboardShell>
+    <DashboardShell onAddClick={() => setIsAddModalOpen(true)}>
       <div className="dashboard-catalog">
         <div className="dashboard-catalog__header">
           <div>
@@ -40,14 +38,6 @@ export function DashboardPage() {
             <h1>Productos</h1>
             <span>{products.length} {products.length === 1 ? "producto" : "productos"}</span>
           </div>
-          <Button
-            type="button"
-            onClick={() => setIsAddModalOpen(true)}
-            className="dashboard-add-button"
-          >
-            <Plus size={18} strokeWidth={2.4} />
-            Agregar
-          </Button>
         </div>
         <ProductGrid products={products} loading={loading} error={error} />
       </div>

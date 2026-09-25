@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { createProduct, getProducts } from "../api/products";
+import { createProduct, getProductsByOwner } from "../api/products";
 import type { CreateProductInput, Product } from "../types/product";
 
 export function useProducts() {
@@ -11,7 +11,7 @@ export function useProducts() {
     setLoading(true);
     setError(null);
     try {
-      setProducts(await getProducts());
+      setProducts(await getProductsByOwner());
     } catch (requestError) {
       setError((requestError as Error).message);
     } finally {

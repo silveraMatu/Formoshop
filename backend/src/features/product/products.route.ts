@@ -8,9 +8,8 @@ import { getProductsByOwnerRouter } from "./get-product-by-owner/getProductByOwn
 export const productRouter = Router()
 
 // 1. ZONA PÚBLICA (No piden token)
-// Catálogo general y vista de producto individual
+// Catálogo general
 productRouter.use(getProductsRouter)
-productRouter.use(getProductByIdRouter)
 
 // 2. ZONA PRIVADA (cada router aplica authenticateToken + authorizeRoles)
 // - createProductRouter: PRODUCER | ADMIN
@@ -19,3 +18,7 @@ productRouter.use(getProductByIdRouter)
 productRouter.use(createProductRouter)
 productRouter.use(getProductsByOwnerRouter)
 productRouter.use(generateMetadataRoutes);
+
+// 3. RUTAS CON PARÁMETROS DINÁMICOS
+// Se colocan al final para evitar colisiones (ej. /owner capturado por /:id)
+productRouter.use(getProductByIdRouter)

@@ -6,8 +6,8 @@ import type {
   ProductMutationResponse,
 } from "../types/product";
 
-export async function getProducts(name?: string): Promise<Product[]> {
-  const response = await apiClient.get<ProductListResponse>("/products", {
+export async function getProductsByOwner(name?: string): Promise<Product[]> {
+  const response = await apiClient.get<ProductListResponse>("/products/owner", {
     params: name ? { name } : undefined,
   });
   return response.data.data;

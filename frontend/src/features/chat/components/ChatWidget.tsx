@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { sendMessageToIA } from '../api/chat';
 
 interface Message {
@@ -28,11 +29,10 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      // responseData contiene el { status, data: { n8n } }
       const res = await sendMessageToIA(userMsg.text, sessionId);
       
       const n8nData = res.data; 
-      const botText = n8nData.data.reply
+      const botText = n8nData.data.reply;
 
       const botMsg: Message = { id: (Date.now() + 1).toString(), text: botText, sender: 'bot' };
       setMessages((prev) => [...prev, botMsg]);
@@ -61,8 +61,12 @@ export function ChatWidget() {
               </div>
             )}
             {messages.map((msg) => (
-              <div key={msg.id} className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${msg.sender === 'user' ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 self-end' : 'bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/5 text-neutral-800 dark:text-neutral-200 self-start'}`}>
-                {msg.text}
+              <div key={msg.id} className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${msg.sender === 'user' ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 self-end' : 'bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/5 text-neutral-800 dark:text-neutral-200 self-start [&_p]:mb-2 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_strong]:font-bold [&_a]:text-blue-500 [&_a]:underline'}`}>
+                {msg.sender === 'bot' ? (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                ) : (
+                  <span className="whitespace-pre-wrap">{msg.text}</span>
+                )}
               </div>
             ))}
             {isLoading && (

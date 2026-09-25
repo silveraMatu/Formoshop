@@ -20,10 +20,10 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: LoginInput) => {
-    const ok = await submit(data);
-    if (ok) {
+    const user = await submit(data);
+    if (user) {
       toast.success("Bienvenido");
-      navigate("/dashboard");
+      navigate(user.role === "PRODUCER" ? "/dashboard" : "/catalogo");
     }
   };
 

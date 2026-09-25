@@ -14,22 +14,52 @@ export function RegisterForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
+    defaultValues: { role: "CLIENT" },
   });
+
+  const watchRole = watch("role");
 
   const onSubmit = async (data: RegisterInput) => {
     const { confirmPassword, ...payload } = data;
     const ok = await submit(payload);
     if (ok) {
       toast.success("Cuenta creada");
-      navigate("/dashboard");
+      navigate(payload.role === "PRODUCER" ? "/dashboard" : "/catalogo");
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="flex bg-neutral-100 dark:bg-neutral-800 p-1 rounded-xl mb-4">
+        <button
+          type="button"
+          onClick={() => setValue("role", "CLIENT")}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${
+            watchRole === "CLIENT"
+              ? "bg-white dark:bg-neutral-700 shadow-sm text-blue-600 dark:text-blue-400"
+              : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+          }`}
+        >
+          Comprador
+        </button>
+        <button
+          type="button"
+          onClick={() => setValue("role", "PRODUCER")}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${
+            watchRole === "PRODUCER"
+              ? "bg-white dark:bg-neutral-700 shadow-sm text-green-600 dark:text-green-400"
+              : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+          }`}
+        >
+          Productor
+        </button>
+      </div>
+
       <Input
         label="Nombre"
         placeholder="Tu nombre"
