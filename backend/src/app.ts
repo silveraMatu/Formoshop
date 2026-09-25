@@ -14,10 +14,12 @@ import { chatRouter } from './features/chat/chat.routes.ts';
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -25,7 +27,7 @@ app.use(pinoHttp({ logger }));
 
 app.use('/api', authRouter);
 app.use('/api/products', productRouter);
-app.use("/api/chat", chatRouter)
+app.use('/api/chat', chatRouter);
 
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'Ok' });
