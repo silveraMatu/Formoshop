@@ -13,11 +13,10 @@ export const sendChatController = async (
     const response = await fetch(n8nWebhookUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-internal-secret': process.env.CHAT_SECRET_KEY!,
-      },
+        'Content-Type': 'application/json'
+    },
       body: JSON.stringify({
-        message,
+        chatInput: message,
         sessionId,
       }),
     });

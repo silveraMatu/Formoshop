@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import { AppDataSource } from '../../../shared/db/index.ts';
 import { Product } from '../../../shared/db/entity/Product/product.ts';
 
-export const createProductController = async (
+export const getProductsByOwnerController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -11,19 +11,19 @@ export const createProductController = async (
     const productRepo = AppDataSource.getRepository(Product);
     const userId = req.user!.id;
 
-    const newProduct = productRepo.create({
-      ...req.body,
-      userId,
+    const products = await productRepo.find({
+      where: {
+        userId,
+      },
     });
 
-    const savedProduct = await productRepo.save(newProduct);
-
-    res.status(201).json({
+    res.status(200).json({
       status: 'Ok',
-      status_code: 201,
-      data: savedProduct,
+      status_code: 200,
+      count: products.length,
+      data: products,
     });
   } catch (err) {
     next(err);
   }
-};
+}

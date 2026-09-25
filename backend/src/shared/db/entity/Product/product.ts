@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import type {ValueTransformer} from "typeorm"
+import { User } from '../User/user.ts';
 
 export enum StatusEnum {
   Agotado = 'Agotado',
@@ -66,4 +67,11 @@ export class Product implements IProductEntity {
 
   @Column({ type: 'varchar', length: 255 })
   ubicacion!: string;
+
+  @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user!: User;
+
+  @Column({ name: 'user_id' })
+  userId!: number;
 }
