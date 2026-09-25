@@ -8,7 +8,9 @@ import type { UserRole } from '../db/entity/User/user.ts';
  * @example
  *   router.post('/', authenticateToken, authorizeRoles('PRODUCER', 'ADMIN'), controller);
  */
-export const authorizeRoles = (...allowedRoles: UserRole[]) => {
+export const authorizeRoles = (
+  ...allowedRoles: Array<UserRole | `${UserRole}`>
+) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const user = req.user;
 
@@ -21,7 +23,7 @@ export const authorizeRoles = (...allowedRoles: UserRole[]) => {
       return;
     }
 
-    if (!allowedRoles.includes(user.role)) {
+    if (!(allowedRoles as UserRole[]).includes(user.role)) {
       res.status(403).json({
         status: 'Error',
         status_code: 403,
