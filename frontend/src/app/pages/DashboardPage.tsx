@@ -81,7 +81,7 @@ export function DashboardPage() {
           />
            <ProductCard 
             name="Queso Criollo" 
-            producer="Lácteos Formosa" Cerrar sesión
+            producer="Lácteos Formosa"
             price={3200} 
             imageUrl="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=600&auto=format&fit=crop" 
             isPaippa={true} 
