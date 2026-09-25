@@ -11,9 +11,9 @@ export function AuthCard({
   children: ReactNode;
 }) {
   return (
-    <Card>
+    <Card className="rounded-3xl">
       <div className="mb-6 space-y-1 text-center">
-        <h1 className="app-card__title text-xl font-semibold">
+        <h1 className="app-card__title text-2xl font-semibold tracking-tight">
           {title}
         </h1>
         {subtitle && <p className="app-card__subtitle text-sm">{subtitle}</p>}

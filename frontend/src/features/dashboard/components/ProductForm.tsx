@@ -119,24 +119,24 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
         </div>
 
         {/* CONTENEDOR DE IA VISUAL */}
-        <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: '#f0f9ff', border: '1px dashed #3b82f6', borderRadius: '8px', textAlign: 'center' }}>
-          <label style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="glass-subtle rounded-2xl p-4 mb-4 text-center border-dashed">
+          <label className="cursor-pointer flex flex-col items-center gap-2">
             {isLoadingIA ? (
               <>
                 <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span style={{ color: '#1d4ed8', fontWeight: 500 }}>La IA está analizando tu producto...</span>
+                <span className="text-blue-700 dark:text-blue-300 font-medium">La IA está analizando tu producto...</span>
               </>
             ) : (
               <>
-                <Wand2 size={24} style={{ color: '#3b82f6' }} />
-                <span style={{ color: '#1d4ed8', fontWeight: 500 }}>Sube una foto de tu producto y autocompleta con Inteligencia Artificial</span>
+                <Wand2 size={24} className="text-blue-500" />
+                <span className="text-blue-700 dark:text-blue-300 font-medium">Sube una foto de tu producto y autocompleta con Inteligencia Artificial</span>
               </>
             )}
             <input 
               type="file" 
               accept="image/*" 
               onChange={handleImageUpload} 
-              style={{ display: 'none' }} 
+              className="hidden" 
               disabled={isLoadingIA}
             />
           </label>
@@ -164,7 +164,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
           <label>Descripción<textarea value={form.description} onChange={(event) => updateField("description", event.target.value)} placeholder="Detalle del producto" rows={3} disabled={isLoadingIA} /></label>
           <label>Etiquetas<input value={form.tag} onChange={(event) => updateField("tag", event.target.value)} placeholder="periféricos, gaming" disabled={isLoadingIA} /></label>
           
-          {error && <p className="dashboard-product-form__error" style={{ color: 'red' }}>{error}</p>}
+          {error && <p className="dashboard-product-form__error text-red-500">{error}</p>}
           
           <button type="submit" className="dashboard-product-form__submit" disabled={saving || isLoadingIA}>
             {saving ? "Guardando..." : "Crear producto"}

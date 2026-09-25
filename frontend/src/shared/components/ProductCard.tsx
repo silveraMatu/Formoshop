@@ -12,23 +12,25 @@ interface ProductCardProps {
 
 export function ProductCard({ name, producer, price, imageUrl, isPaippa }: ProductCardProps) {
   return (
-    <Card className="p-0 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+    <Card className="p-0 overflow-hidden flex flex-col rounded-2xl hover:shadow-xl transition-all duration-300">
       {/* Imagen del producto */}
-      <img 
-        src={imageUrl} 
-        alt={name} 
-        className="w-full h-48 object-cover bg-gray-100"
-      />
+      <div className="relative w-full h-48 overflow-hidden rounded-t-2xl">
+        <img 
+          src={imageUrl} 
+          alt={name} 
+          className="w-full h-full object-cover bg-neutral-100 dark:bg-neutral-800 transition-transform duration-500 hover:scale-105"
+        />
+      </div>
       
       {/* Contenido de la tarjeta */}
       <div className="p-5 flex flex-col gap-2">
-        <div className="flex justify-between items-start">
-          <h3 className="font-bold text-xl text-gray-900">{name}</h3>
-          <span className="text-xl font-bold text-green-600">${price}</span>
+        <div className="flex justify-between items-start gap-3">
+          <h3 className="font-bold text-xl text-neutral-900 dark:text-neutral-50">{name}</h3>
+          <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">${price}</span>
         </div>
         
-        <p className="text-sm text-gray-600">
-          📍 Productor: <strong>{producer}</strong>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          📍 Productor: <strong className="text-neutral-800 dark:text-neutral-200">{producer}</strong>
         </p>
 
         {/* Renderizado condicional del sello PAIPPA */}

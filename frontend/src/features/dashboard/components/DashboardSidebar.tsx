@@ -28,7 +28,7 @@ export function DashboardSidebar() {
           </span>
           {/* Aparece el tilde verde en el perfil si está verificado por el ente */}
           {user?.isPaippaVerified && (
-            <span style={{ fontSize: '11px', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
               <CheckCircle size={12} /> Productor Verificado
             </span>
           )}

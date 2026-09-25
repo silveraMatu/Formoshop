@@ -48,25 +48,25 @@ export function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {isOpen && (
-        <div className="bg-white dark:bg-neutral-800 w-80 h-[400px] rounded-xl shadow-2xl flex flex-col overflow-hidden mb-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="bg-blue-600 text-white p-4 font-semibold flex justify-between items-center shadow-md">
+        <div className="w-80 h-[420px] rounded-3xl flex flex-col overflow-hidden mb-4 bg-white/75 dark:bg-neutral-950/70 backdrop-blur-2xl backdrop-saturate-150 border border-white/40 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
+          <div className="p-4 font-semibold flex justify-between items-center border-b border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50">
             <span>Asistente PAIPPA</span>
-            <button onClick={() => setIsOpen(false)} className="hover:text-neutral-200 text-xl leading-none">&times;</button>
+            <button onClick={() => setIsOpen(false)} className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 text-xl leading-none transition-colors duration-150 active:scale-95">&times;</button>
           </div>
           
-          <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-neutral-50 dark:bg-neutral-900">
+          <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="text-center text-sm text-neutral-500 mt-4">
                 ¡Hola! ¿En qué puedo ayudarte hoy?
               </div>
             )}
             {messages.map((msg) => (
-              <div key={msg.id} className={`max-w-[85%] p-3 rounded-lg text-sm ${msg.sender === 'user' ? 'bg-blue-600 text-white self-end rounded-br-none shadow-sm' : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 self-start rounded-bl-none shadow-sm'}`}>
+              <div key={msg.id} className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${msg.sender === 'user' ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 self-end' : 'bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/5 text-neutral-800 dark:text-neutral-200 self-start'}`}>
                 {msg.text}
               </div>
             ))}
             {isLoading && (
-              <div className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 self-start rounded-lg rounded-bl-none p-3 text-sm flex gap-1 items-center shadow-sm">
+              <div className="bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/5 text-neutral-800 dark:text-neutral-200 self-start rounded-2xl p-3 text-sm flex gap-1 items-center shadow-sm">
                 <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
                 <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
@@ -75,16 +75,16 @@ export function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-3 bg-white dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700 flex gap-2">
+          <div className="p-3 border-t border-black/5 dark:border-white/10 flex gap-2">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Escribe un mensaje..."
-              className="flex-1 p-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-neutral-50 dark:bg-neutral-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white"
+              className="flex-1 px-3 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-sm focus:outline-none focus:border-black/20 dark:focus:border-white/20 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 transition-all duration-150"
             />
-            <button onClick={handleSend} disabled={isLoading} className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium transition-colors">
+            <button onClick={handleSend} disabled={isLoading} className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-3 py-2 rounded-xl hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:opacity-50 font-medium transition-all duration-150 active:scale-[0.98]">
               Enviar
             </button>
           </div>
@@ -94,7 +94,7 @@ export function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-blue-600 text-white rounded-full shadow-xl hover:bg-blue-700 flex items-center justify-center text-2xl transition-transform hover:scale-105"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl transition-transform hover:scale-105 active:scale-95 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border border-white/40 dark:border-white/15 shadow-2xl"
         >
           💬
         </button>

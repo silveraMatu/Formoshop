@@ -12,7 +12,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "app-card w-full max-w-md p-8",
+        "app-card w-full max-w-md p-8 rounded-3xl",
         className
       )}
     >

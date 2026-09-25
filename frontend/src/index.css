@@ -10,6 +10,19 @@
   --surface: #ffffff;
   --surface-raised: #f7fcff;
   --shadow: #080b12;
+
+  /* macOS Glass Tokens */
+  --glass-bg: rgb(255 255 255 / 65%);
+  --glass-bg-strong: rgb(255 255 255 / 75%);
+  --glass-bg-subtle: rgb(255 255 255 / 50%);
+  --glass-border: rgb(255 255 255 / 40%);
+  --glass-border-soft: rgb(0 0 0 / 5%);
+  --glass-shadow: 0 8px 30px rgb(0 0 0 / 6%);
+  --glass-shadow-strong: 0 8px 32px rgb(0 0 0 / 12%);
+  --glass-blur: 20px;
+  --glass-blur-strong: 32px;
+  --glass-saturate: 150%;
+
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--blue-pale);
@@ -25,6 +38,15 @@
   --surface: #101c27;
   --surface-raised: #152633;
   --shadow: #000000;
+
+  /* macOS Glass Tokens (Dark) */
+  --glass-bg: rgb(16 28 39 / 60%);
+  --glass-bg-strong: rgb(9 19 29 / 70%);
+  --glass-bg-subtle: rgb(16 28 39 / 50%);
+  --glass-border: rgb(255 255 255 / 10%);
+  --glass-border-soft: rgb(255 255 255 / 10%);
+  --glass-shadow: 0 8px 32px rgb(0 0 0 / 37%);
+  --glass-shadow-strong: 0 8px 32px rgb(0 0 0 / 50%);
 }
 
 html,
@@ -35,9 +57,138 @@ body,
 
 body {
   margin: 0;
-  background: var(--blue-pale);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgb(8 168 232 / 10%), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgb(8 121 176 / 8%), transparent 55%),
+    linear-gradient(135deg, #f4f6f8 0%, #e9edf1 50%, #f4f6f8 100%);
+  background-attachment: fixed;
   color: var(--ink);
   transition: background-color 180ms ease, color 180ms ease;
+}
+
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgb(29 186 242 / 10%), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgb(115 216 255 / 6%), transparent 55%),
+    linear-gradient(135deg, #050a10 0%, #09131d 50%, #050a10 100%);
+  background-attachment: fixed;
+}
+
+/* ============================================================
+   macOS Glassmorphism — utilidades reutilizables
+   ============================================================ */
+
+.glass-surface {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-strong);
+}
+
+.glass-subtle {
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--glass-border-soft);
+}
+
+.glass-input {
+  background: rgb(0 0 0 / 5%);
+  border: 1px solid rgb(0 0 0 / 5%);
+  border-radius: 12px;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+:root[data-theme="dark"] .glass-input {
+  background: rgb(255 255 255 / 5%);
+  border-color: rgb(255 255 255 / 10%);
+}
+
+.glass-input:focus,
+.glass-input:focus-visible {
+  outline: none;
+  border-color: rgb(0 0 0 / 20%);
+  box-shadow: 0 0 0 3px rgb(8 168 232 / 15%);
+}
+
+:root[data-theme="dark"] .glass-input:focus,
+:root[data-theme="dark"] .glass-input:focus-visible {
+  border-color: rgb(255 255 255 / 20%);
+}
+
+.glass-button-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+  transition: background-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.glass-button-primary:hover {
+  background: #1f2937;
+}
+
+:root[data-theme="dark"] .glass-button-primary {
+  background: #ffffff;
+  color: #080b12;
+}
+
+:root[data-theme="dark"] .glass-button-primary:hover {
+  background: #e5e7eb;
+}
+
+.glass-button-primary:active {
+  transform: scale(0.98);
+}
+
+.glass-button-ghost {
+  background: rgb(255 255 255 / 40%);
+  border: 1px solid rgb(0 0 0 / 5%);
+  color: var(--ink);
+  border-radius: 12px;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.glass-button-ghost:hover {
+  background: rgb(255 255 255 / 80%);
+}
+
+:root[data-theme="dark"] .glass-button-ghost {
+  background: rgb(255 255 255 / 5%);
+  border-color: rgb(255 255 255 / 10%);
+  color: #e5e7eb;
+}
+
+:root[data-theme="dark"] .glass-button-ghost:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+.glass-button-ghost:active {
+  transform: scale(0.98);
+}
+
+.glass-badge {
+  background: rgb(0 0 0 / 5%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+}
+
+:root[data-theme="dark"] .glass-badge {
+  background: rgb(255 255 255 / 10%);
 }
 
 button,
@@ -53,8 +204,16 @@ input {
   justify-content: center;
   padding: 24px;
   background:
-    linear-gradient(135deg, transparent 0 48%, rgb(8 168 232 / 7%) 48% 50%, transparent 50%),
-    var(--blue-pale);
+    radial-gradient(900px 500px at 15% 0%, rgb(8 168 232 / 12%), transparent 60%),
+    radial-gradient(700px 400px at 100% 100%, rgb(8 121 176 / 10%), transparent 55%),
+    linear-gradient(135deg, #f4f6f8 0%, #e9edf1 50%, #f4f6f8 100%);
+}
+
+:root[data-theme="dark"] .auth-layout {
+  background:
+    radial-gradient(900px 500px at 15% 0%, rgb(29 186 242 / 12%), transparent 60%),
+    radial-gradient(700px 400px at 100% 100%, rgb(115 216 255 / 8%), transparent 55%),
+    linear-gradient(135deg, #050a10 0%, #09131d 50%, #050a10 100%);
 }
 
 .auth-layout__toolbar {
@@ -64,11 +223,13 @@ input {
 }
 
 .app-card {
-  border: 2px solid var(--ink);
-  border-radius: 16px;
-  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   color: var(--ink);
-  box-shadow: 6px 6px 0 var(--shadow);
+  box-shadow: var(--glass-shadow-strong);
 }
 
 .app-card__title {
@@ -85,17 +246,30 @@ input {
 }
 
 .app-button {
-  border: 2px solid var(--ink);
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   background: var(--ink);
   color: var(--surface);
-  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
 }
 
 .app-button:hover {
-  background: var(--blue);
-  color: #031019;
-  transform: translateY(-1px);
+  background: #1f2937;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
+}
+
+.app-button:active {
+  transform: scale(0.98);
+}
+
+:root[data-theme="dark"] .app-button {
+  background: #ffffff;
+  color: #080b12;
+}
+
+:root[data-theme="dark"] .app-button:hover {
+  background: #e5e7eb;
 }
 
 .app-button:focus-visible,
@@ -110,11 +284,16 @@ input {
 }
 
 .app-input {
-  border: 2px solid var(--blue-line);
-  border-radius: 8px;
-  background: var(--surface);
+  border: 1px solid rgb(0 0 0 / 5%);
+  border-radius: 12px;
+  background: rgb(0 0 0 / 5%);
   color: var(--ink);
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+:root[data-theme="dark"] .app-input {
+  background: rgb(255 255 255 / 5%);
+  border-color: rgb(255 255 255 / 10%);
 }
 
 .app-input::placeholder {
@@ -122,8 +301,12 @@ input {
 }
 
 .app-input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgb(8 168 232 / 18%);
+  border-color: rgb(0 0 0 / 20%);
+  box-shadow: 0 0 0 3px rgb(8 168 232 / 15%);
+}
+
+:root[data-theme="dark"] .app-input:focus {
+  border-color: rgb(255 255 255 / 20%);
 }
 
 .app-password-toggle {
@@ -140,16 +323,22 @@ input {
   height: 40px;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   color: var(--ink);
   cursor: pointer;
+  box-shadow: var(--glass-shadow);
   transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
 .theme-toggle:hover {
-  background: var(--blue);
-  color: #031019;
+  background: var(--glass-bg-strong);
   transform: rotate(12deg);
+}
+
+.theme-toggle:active {
+  transform: scale(0.96);
 }

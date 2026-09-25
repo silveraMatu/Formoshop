@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           ref={ref}
           {...rest}
           className={cn(
-            "app-input w-full px-3 py-2 text-sm",
+            "app-input w-full px-3.5 py-2.5 text-sm rounded-xl",
             error && "border-red-500 focus:ring-red-400",
             className
           )}

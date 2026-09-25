@@ -45,30 +45,30 @@ export function AdminDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-neutral-50 dark:bg-neutral-900 p-8">
+    <div className="flex min-h-screen flex-col items-center p-8">
       <div className="w-full max-w-4xl">
         <div className="flex items-center gap-3 mb-8">
-          <ShieldAlert className="text-green-600" size={32} />
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
+          <ShieldAlert className="text-emerald-600 dark:text-emerald-400" size={32} />
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
             Portal PAIPPA - Validaciones Pendientes
           </h1>
         </div>
 
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm overflow-hidden border border-neutral-200 dark:border-neutral-700">
+        <div className="bg-white/65 dark:bg-neutral-900/60 backdrop-blur-xl backdrop-saturate-150 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] overflow-hidden border border-white/40 dark:border-white/10">
           {loading ? (
             <p className="p-8 text-center text-neutral-500">Cargando padrón...</p>
           ) : vendors.length === 0 ? (
             <p className="p-8 text-center text-neutral-500">No hay productores pendientes de validación.</p>
           ) : (
-            <div className="divide-y divide-neutral-200 dark:divide-neutral-700">
+            <div className="divide-y divide-black/5 dark:divide-white/10">
               {vendors.map((vendor) => (
-                <div key={vendor.id} className="p-6 flex items-center justify-between hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors">
+                <div key={vendor.id} className="p-6 flex items-center justify-between hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-150">
                   <div className="flex items-center gap-4">
-                    <div className="bg-neutral-100 dark:bg-neutral-700 p-3 rounded-full">
+                    <div className="bg-black/5 dark:bg-white/10 p-3 rounded-full backdrop-blur-sm">
                       <UserRound size={24} className="text-neutral-600 dark:text-neutral-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg text-neutral-900 dark:text-white">
+                      <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-50">
                         {vendor.name}
                       </h3>
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -78,7 +78,7 @@ export function AdminDashboard() {
                   </div>
                   <button
                     onClick={() => handleApprove(vendor.id)}
-                    className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors"
+                    className="flex items-center gap-2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 px-5 py-2.5 rounded-xl font-medium transition-all duration-150 active:scale-[0.98] shadow-sm"
                   >
                     <CheckCircle size={18} />
                     Aprobar Productor

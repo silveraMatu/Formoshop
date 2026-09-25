@@ -22,7 +22,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, Props>(
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
-          className="app-password-toggle absolute right-3 top-[34px]"
+          className="app-password-toggle absolute right-3 top-[36px] transition-colors duration-150"
           aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
         >
           {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}

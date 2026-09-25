@@ -34,26 +34,26 @@ function CatalogContent() {
   );
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors">
+    <div className="min-h-screen transition-colors">
       {/* HEADER */}
-      <header className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 sticky top-0 z-20">
+      <header className="sticky top-0 z-20 bg-white/65 dark:bg-neutral-900/60 backdrop-blur-xl backdrop-saturate-150 border-b border-white/40 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold">
+            <div className="w-8 h-8 bg-neutral-900 dark:bg-white rounded-xl flex items-center justify-center text-white dark:text-neutral-900 font-bold shadow-sm">
               F
             </div>
-            <span className="text-xl font-bold text-neutral-900 dark:text-white">FormoShop</span>
+            <span className="text-xl font-bold text-neutral-900 dark:text-neutral-50">FormoShop</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <button
               onClick={() => setIsCartOpen(true)}
-              className="p-2 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-full relative"
+              className="p-2.5 text-neutral-700 dark:text-neutral-200 hover:bg-black/5 dark:hover:bg-white/10 rounded-full relative transition-colors duration-150 active:scale-95"
             >
-              <ShoppingCart size={24} />
+              <ShoppingCart size={22} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-green-600 text-white text-[11px] font-bold flex items-center justify-center rounded-full border-2 border-white dark:border-neutral-800">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[11px] font-bold flex items-center justify-center rounded-full border-2 border-white dark:border-neutral-900">
                   {cartCount}
                 </span>
               )}
@@ -65,7 +65,7 @@ function CatalogContent() {
       {/* LISTA DE PRODUCTOS */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-neutral-900 dark:text-neutral-50 mb-4 tracking-tight">
             Directo del productor a tu mesa
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl mx-auto">
@@ -79,7 +79,7 @@ function CatalogContent() {
               placeholder="Buscar verduras, miel, quesos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:ring-2 focus:ring-green-500 outline-none shadow-sm"
+              className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 focus:border-black/20 dark:focus:border-white/20 focus:ring-0 outline-none transition-all duration-150"
             />
           </div>
         </div>
@@ -89,15 +89,15 @@ function CatalogContent() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <article key={product.id} className="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow group flex flex-col">
-                <div className="h-48 bg-neutral-100 dark:bg-neutral-700 relative overflow-hidden flex items-center justify-center">
+              <article key={product.id} className="bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl overflow-hidden hover:bg-white/70 dark:hover:bg-neutral-800/60 hover:shadow-xl transition-all duration-300 group flex flex-col">
+                <div className="h-48 bg-neutral-100/60 dark:bg-neutral-800/60 relative overflow-hidden flex items-center justify-center rounded-xl m-2">
                   {product.image ? (
-                    <img src={product.image} alt={product.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={product.image} alt={product.title} className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" />
                   ) : (
                     <Package size={40} className="text-neutral-300 dark:text-neutral-600" />
                   )}
                   {product.isPaippa && (
-                    <div className="absolute top-2 left-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 backdrop-blur-sm">
+                    <div className="absolute top-2 left-2 bg-black/5 dark:bg-white/10 backdrop-blur-sm text-emerald-700 dark:text-emerald-300 text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1 border border-emerald-500/20">
                       <CheckCircle size={12} />
                       Feria PAIPPA
                     </div>
@@ -105,16 +105,16 @@ function CatalogContent() {
                 </div>
 
                 <div className="p-4 flex flex-col flex-grow">
-                  <h3 className="font-semibold text-lg text-neutral-900 dark:text-white mb-1 leading-tight">
+                  <h3 className="font-semibold text-lg text-neutral-900 dark:text-neutral-50 mb-1 leading-tight">
                     {product.title}
                   </h3>
                   <div className="mt-auto pt-4 flex items-center justify-between">
-                    <span className="font-bold text-xl text-neutral-900 dark:text-white">
+                    <span className="font-bold text-xl text-neutral-900 dark:text-neutral-50">
                       ${Number(product.price).toFixed(2)}
                     </span>
                     <button
                       onClick={() => addToCart(product)}
-                      className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 dark:hover:bg-green-500 hover:text-white transition-colors"
+                      className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 py-2 rounded-xl text-sm font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-150 active:scale-[0.98] shadow-sm"
                     >
                       Agregar
                     </button>
@@ -130,12 +130,12 @@ function CatalogContent() {
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsCartOpen(false)} />
-          <div className="relative w-full max-w-md bg-white dark:bg-neutral-900 h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
-            <div className="p-5 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+          <div className="relative w-full max-w-md bg-white/75 dark:bg-neutral-950/70 backdrop-blur-2xl backdrop-saturate-150 h-full shadow-2xl flex flex-col border-l border-white/40 dark:border-white/10 animate-in slide-in-from-right duration-300">
+            <div className="p-5 border-b border-black/5 dark:border-white/10 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-50 flex items-center gap-2">
                 <ShoppingCart size={20} /> Mi Carrito
               </h2>
-              <button onClick={() => setIsCartOpen(false)} className="p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full">
+              <button onClick={() => setIsCartOpen(false)} className="p-2 text-neutral-500 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors duration-150 active:scale-95">
                 <X size={20} />
               </button>
             </div>
@@ -149,12 +149,12 @@ function CatalogContent() {
               ) : (
                 <div className="space-y-4">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex gap-4 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-100 dark:border-neutral-700">
+                    <div key={item.id} className="flex gap-4 p-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5">
                       <div className="flex-1">
-                        <h4 className="font-semibold text-neutral-900 dark:text-white">{item.title}</h4>
+                        <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">{item.title}</h4>
                         <div className="flex justify-between items-center mt-2">
-                          <p className="text-green-600 font-medium">${Number(item.price).toFixed(2)} x {item.quantity}</p>
-                          <button onClick={() => removeFromCart(item.id)} className="text-red-500 p-1 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md">
+                          <p className="text-emerald-600 dark:text-emerald-400 font-medium">${Number(item.price).toFixed(2)} x {item.quantity}</p>
+                          <button onClick={() => removeFromCart(item.id)} className="text-red-500 p-1 hover:bg-red-500/10 rounded-lg transition-colors duration-150 active:scale-95">
                             <Trash2 size={16} />
                           </button>
                         </div>
@@ -165,15 +165,15 @@ function CatalogContent() {
               )}
             </div>
 
-            <div className="p-5 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+            <div className="p-5 border-t border-black/5 dark:border-white/10">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-neutral-500 font-medium">Total a pagar:</span>
-                <span className="text-2xl font-bold text-neutral-900 dark:text-white">${cartTotal.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">${cartTotal.toFixed(2)}</span>
               </div>
               <button
                 disabled={cart.length === 0}
                 onClick={() => alert("¡Simulación de Checkout Exitosa! En una app real, acá se abriría Mercado Pago o se guardaría la orden.")}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold text-lg transition-colors shadow-lg shadow-green-600/20"
+                className="w-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed py-4 rounded-xl font-bold text-lg transition-all duration-150 active:scale-[0.98] shadow-sm"
               >
                 Finalizar Compra
               </button>
