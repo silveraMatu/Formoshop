@@ -1,5 +1,7 @@
 import { MapPin, Package } from "lucide-react";
 import type { Product } from "../types/product";
+// Importamos el sello (ajustá los ../ si este archivo está muy profundo en las carpetas)
+import { PaippaBadge } from "../../auth/components/PaippaBadge";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -16,6 +18,13 @@ export function ProductCard({ product }: { product: Product }) {
             {product.status}
           </span>
         </div>
+        
+        {/* ACÁ AGREGAMOS EL SELLO PAIPPA */}
+        <div className="mb-2">
+          {/* Le pasamos true para forzar que aparezca y veas cómo queda */}
+              <PaippaBadge isVerified={product.isPaippa} />
+        </div>
+
         <p className="product-card__price">${product.price.toFixed(2)}</p>
         <div className="product-card__meta">
           <span>Stock: {product.stock}</span>

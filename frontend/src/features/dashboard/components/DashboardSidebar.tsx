@@ -1,4 +1,4 @@
-import { Menu, UserRound, X } from "lucide-react";
+import { Menu, UserRound, X, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
@@ -22,9 +22,17 @@ export function DashboardSidebar() {
         <div className="dashboard-profile__avatar">
           <UserRound size={21} strokeWidth={1.8} />
         </div>
-        <span className="dashboard-profile__name">
-          {user?.name ?? "Usuario"}
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <span className="dashboard-profile__name">
+            {user?.name ?? "Usuario"}
+          </span>
+          {/* Aparece el tilde verde en el perfil si está verificado por el ente */}
+          {user?.isPaippaVerified && (
+            <span style={{ fontSize: '11px', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+              <CheckCircle size={12} /> Productor Verificado
+            </span>
+          )}
+        </div>
       </div>
 
       <nav className="dashboard-sidebar__nav" aria-label="Navegación principal">

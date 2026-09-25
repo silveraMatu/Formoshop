@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Product } from '../Product/product.ts';
 
 interface IUserEntity {
   id: number;
@@ -18,6 +19,10 @@ export class User implements IUserEntity {
   @Column({ type: "varchar", unique: true })
   email!: string;
 
-  @Column({type: "varchar"})
+  @Column({ type: "varchar"})
   password_hash!: string;
+
+  @OneToMany(() => Product, (product) => product.user)
+  products!: Product[];
 }
+
