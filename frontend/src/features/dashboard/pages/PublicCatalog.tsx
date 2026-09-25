@@ -12,6 +12,9 @@ import { ProductCard } from "@/features/marketplace/components/ProductCard";
 function CatalogContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [loading, setLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart, removeFromCart, cartTotal, cartCount } = useCart();
@@ -34,9 +37,23 @@ function CatalogContent() {
     fetchPublicProducts();
   }, []);
 
-  const filteredProducts = products.filter((p) =>
+  let filteredProducts = products.filter((p) =>
     p.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (minPrice !== "") {
+    filteredProducts = filteredProducts.filter((p) => Number(p.price) >= Number(minPrice));
+  }
+
+  if (maxPrice !== "") {
+    filteredProducts = filteredProducts.filter((p) => Number(p.price) <= Number(maxPrice));
+  }
+
+  if (priceFilter === "asc") {
+    filteredProducts = [...filteredProducts].sort((a, b) => Number(a.price) - Number(b.price));
+  } else if (priceFilter === "desc") {
+    filteredProducts = [...filteredProducts].sort((a, b) => Number(b.price) - Number(a.price));
+  }
 
   return (
     <div className="min-h-screen transition-colors">
@@ -74,18 +91,47 @@ function CatalogContent() {
             Directo del productor a tu mesa
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl mx-auto">
-            Descubrí productos frescos y locales. Buscá el sello PAIPPA para garantizar la compra directa a familias productoras de Formosa.
+            Descubrí productos frescos y locales.
           </p>
 
-          <div className="max-w-xl mx-auto relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
-            <input
-              type="text"
-              placeholder="Buscar verduras, miel, quesos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 focus:border-black/20 dark:focus:border-white/20 focus:ring-0 outline-none transition-all duration-150"
-            />
+          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
+              <input
+                type="text"
+                placeholder="Buscar verduras, miel, quesos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 focus:border-black/20 dark:focus:border-white/20 focus:ring-0 outline-none transition-all duration-150"
+              />
+            </div>
+            
+            <select
+              value={priceFilter}
+              onChange={(e) => setPriceFilter(e.target.value)}
+              className="px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 focus:border-black/20 dark:focus:border-white/20 outline-none appearance-none cursor-pointer"
+            >
+              <option value="" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">Cualquier precio</option>
+              <option value="asc" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">Menor precio</option>
+              <option value="desc" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">Mayor precio</option>
+            </select>
+
+            <div className="flex gap-2">
+              <input
+                type="number"
+                placeholder="Min $"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                className="w-24 px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 focus:border-black/20 dark:focus:border-white/20 outline-none transition-all duration-150"
+              />
+              <input
+                type="number"
+                placeholder="Max $"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                className="w-24 px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-500 focus:border-black/20 dark:focus:border-white/20 outline-none transition-all duration-150"
+              />
+            </div>
           </div>
         </div>
 

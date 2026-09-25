@@ -95,6 +95,13 @@ export function ProductCard({
             {product.title}
           </h3>
 
+          {product.ubicacion && (
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-2 flex items-center gap-1.5">
+              <MapPin size={14} className="text-emerald-500 shrink-0" />
+              <span className="truncate">{product.ubicacion}</span>
+            </p>
+          )}
+
           {product.stock !== undefined && (
             <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-2">
               Stock: <span className="font-medium text-neutral-700 dark:text-neutral-300">{product.stock}</span>

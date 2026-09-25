@@ -55,28 +55,10 @@ const benefits = [
       "Productos cosechados y despachados en el día, directo del campo a tu mesa sin intermediarios.",
   },
   {
-    icon: ShieldCheck,
-    title: "Trazabilidad total",
-    description:
-      "Cada producto tiene origen verificado y sello PAIPPA para que sepas exactamente de dónde viene.",
-  },
-  {
-    icon: Truck,
-    title: "Logística local",
-    description:
-      "Entregas coordinadas con productores de tu zona, reduciendo huella de carbono y tiempos.",
-  },
-  {
     icon: BadgeCheck,
     title: "Comercio justo",
     description:
       "El productor define su precio. Sin comisiones abusivas, sin cadenas largas de intermediarios.",
-  },
-  {
-    icon: Leaf,
-    title: "Producción sustentable",
-    description:
-      "Fomentamos prácticas agroecológicas y el consumo responsable en la comunidad formoseña.",
   },
   {
     icon: Sparkles,
@@ -171,8 +153,8 @@ export function LandingPage() {
 
           <p className="mt-8 max-w-2xl mx-auto text-lg md:text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Formoshop conecta a familias productoras de Formosa con consumidores
-            locales. Comercio justo, trazabilidad PAIPPA y frescura garantizada
-            en cada pedido.
+            locales. Comercio justo y frescura garantizada
+            en cada producto.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -194,19 +176,8 @@ export function LandingPage() {
           {/* MOCKUP VENTANA macOS */}
           <div className="mt-20 max-w-4xl mx-auto">
             <div className="rounded-3xl overflow-hidden bg-white/75 dark:bg-neutral-950/70 backdrop-blur-2xl backdrop-saturate-150 border border-white/60 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-black/5 dark:border-white/10">
-                <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-400/80" />
-                <span className="w-3 h-3 rounded-full bg-green-400/80" />
-                <span className="ml-3 text-xs text-neutral-500 dark:text-neutral-400 font-medium">
-                  formoshop.app/catalogo
-                </span>
-              </div>
-              <img
-                src={heroImage}
-                alt="Vista previa del catálogo de Formoshop"
-                className="w-full h-auto object-cover"
-              />
+              
+              
             </div>
           </div>
         </div>
@@ -220,7 +191,7 @@ export function LandingPage() {
               Por qué Formoshop
             </p>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
-              Una plataforma pensada para el campo
+              Una plataforma pensada para vos
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-neutral-600 dark:text-neutral-400">
               Cada detalle está diseñado para que productores y consumidores
@@ -255,73 +226,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* PREVIEW DEL CATÁLOGO */}
-      <section id="catalogo" className="px-4 py-20 md:py-28">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-emerald-600 dark:text-emerald-400 mb-3">
-                Catálogo destacado
-              </p>
-              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
-                Productos de la semana
-              </h2>
-            </div>
-            <Link
-              to="/catalogo"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium bg-white/40 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 border border-black/5 dark:border-white/10 text-neutral-800 dark:text-neutral-200 transition-all duration-150 active:scale-[0.97] self-start md:self-auto"
-            >
-              Ver todo el catálogo
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTORES PAIPPA */}
-      <section id="productores" className="px-4 py-20 md:py-28">
-        <div className="max-w-6xl mx-auto">
-          <Card className="max-w-none p-10 md:p-16 rounded-3xl text-center">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6">
-              <BadgeCheck
-                size={26}
-                className="text-emerald-600 dark:text-emerald-400"
-              />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 mb-4">
-              Sello PAIPPA: confianza verificada
-            </h2>
-            <p className="max-w-2xl mx-auto text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
-              El Programa de Asistencia Integral para Pequeños Productores
-              Agropecuarios valida a cada familia productora. Buscá el sello en
-              los productos para garantizar compra directa y comercio justo.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to="/register"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-sm transition-all duration-150 active:scale-[0.97] w-full sm:w-auto"
-              >
-                Registrarme como productor
-                <ArrowRight size={16} />
-              </Link>
-              <Link
-                to="/catalogo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-white/40 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 border border-black/5 dark:border-white/10 text-neutral-800 dark:text-neutral-200 transition-all duration-150 active:scale-[0.97] w-full sm:w-auto"
-              >
-                <MapPin size={16} />
-                Ver productores
-              </Link>
-            </div>
-          </Card>
-        </div>
-      </section>
-
+      
       {/* FOOTER */}
       <footer className="px-4 py-12 border-t border-black/5 dark:border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">

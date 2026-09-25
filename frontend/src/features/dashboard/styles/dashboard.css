@@ -1,5 +1,6 @@
 .dashboard-page {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   padding: 0;
   background: transparent;
   color: var(--ink);
@@ -7,7 +8,8 @@
 
 .dashboard-frame {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: transparent;
 }
 
@@ -16,9 +18,11 @@
   z-index: 2;
   display: flex;
   width: 176px;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: stretch;
   padding: 18px 16px;
+  overflow-y: auto;
   border-right: 1px solid var(--glass-border-bright);
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -146,7 +150,8 @@
   position: relative;
   display: flex;
   flex: 1;
-  align-items: center;
+  overflow-y: auto;
+  align-items: flex-start;
   justify-content: center;
   padding: 32px;
 }
@@ -595,7 +600,7 @@
 
 @media (min-width: 640px) {
   .dashboard-frame {
-    min-height: 100vh;
+    height: 100vh;
   }
 
   .dashboard-sidebar {
