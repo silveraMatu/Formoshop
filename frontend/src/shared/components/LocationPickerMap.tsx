@@ -70,6 +70,16 @@ function MapController({ position }: { position: LatLngExpression | null }) {
   return null;
 }
 
+/** Fuerza un re-render del mapa cuando cambia el tamaño del contenedor (modales). */
+function ResizeHandler() {
+  const map = useMap();
+  useEffect(() => {
+    const timeout = window.setTimeout(() => map.invalidateSize(), 200);
+    return () => window.clearTimeout(timeout);
+  }, [map]);
+  return null;
+}
+
 export function LocationPickerMap({ value, onChange, className }: LocationPickerMapProps) {
   const [address, setAddress] = useState<string>(value?.address ?? "");
   const [query, setQuery] = useState("");
@@ -81,7 +91,7 @@ export function LocationPickerMap({ value, onChange, className }: LocationPicker
 
   const position = useMemo<LatLngExpression | null>(
     () => (value ? [value.lat, value.lng] : null),
-    [value],
+    [value?.lat, value?.lng],
   );
 
   // Reverse geocoding con Nominatim para obtener la dirección del punto elegido
@@ -231,7 +241,8 @@ export function LocationPickerMap({ value, onChange, className }: LocationPicker
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ClickHandler onPick={handlePick} />
-          <MapController position={flyTarget} />
+          <MapController position={flyTarget ?? position} />
+          <ResizeHandler />
           {position && <Marker position={position} icon={markerIcon} />}
         </MapContainer>
       </div>

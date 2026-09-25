@@ -358,3 +358,38 @@ input {
 .theme-toggle:active {
   transform: scale(0.96);
 }
+
+/* ============================================================
+   Leaflet — ajustes de integración con el glassmorphism
+   ============================================================ */
+
+.leaflet-container {
+  background: var(--surface-raised);
+  font-family: inherit;
+  z-index: 0;
+}
+
+.leaflet-container a {
+  color: var(--blue-deep);
+}
+
+.leaflet-control-attribution {
+  background: rgb(255 255 255 / 70%) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 10px;
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution {
+  background: rgb(16 28 39 / 70%) !important;
+  color: var(--ink-muted);
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution a {
+  color: var(--blue);
+}
+
+.formoshop-marker {
+  background: transparent;
+  border: none;
+}
