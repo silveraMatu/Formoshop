@@ -1,7 +1,9 @@
-import { X, MapPin, Package, CheckCircle, Leaf } from "lucide-react";
+import { useState } from "react";
+import { X, MapPin, Package, CheckCircle, Leaf, TrendingDown } from "lucide-react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import type { BaseProduct } from "./ProductCard";
+import { PriceComparatorModal } from "./PriceComparatorModal";
 
 interface ProductDetailsModalProps {
   product: BaseProduct;
@@ -30,6 +32,7 @@ const markerIcon = L.divIcon({
 });
 
 export function ProductDetailsModal({ product, onClose }: ProductDetailsModalProps) {
+  const [showComparator, setShowComparator] = useState(false);
   const imgSrc = product.imageUrl || product.image;
   const tagsList = product.tags || product.tag || [];
 
@@ -96,7 +99,7 @@ export function ProductDetailsModal({ product, onClose }: ProductDetailsModalPro
                 {product.title}
               </h3>
               
-              <div className="flex items-end gap-3 border-b border-black/5 dark:border-white/10 pb-4">
+              <div className="flex items-end gap-3 border-b border-black/5 dark:border-white/10 pb-4 flex-wrap">
                 <span className="text-3xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
                   ${Number(product.price).toFixed(2)}
                 </span>
@@ -105,6 +108,14 @@ export function ProductDetailsModal({ product, onClose }: ProductDetailsModalPro
                     {product.status}
                   </span>
                 )}
+                
+                <button
+                  onClick={() => setShowComparator(true)}
+                  className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-sm font-medium border border-blue-500/20 transition-colors"
+                >
+                  <TrendingDown size={14} />
+                  Comparar precios
+                </button>
               </div>
 
               {product.stock !== undefined && (
@@ -160,6 +171,12 @@ export function ProductDetailsModal({ product, onClose }: ProductDetailsModalPro
 
         </div>
       </div>
+      {showComparator && (
+        <PriceComparatorModal 
+          product={product} 
+          onClose={() => setShowComparator(false)} 
+        />
+      )}
     </div>
   );
 }
