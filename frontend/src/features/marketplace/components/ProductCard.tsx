@@ -20,7 +20,7 @@ export function ProductCard({
   actionLabel = "Ver detalles" 
 }: ProductCardProps) {
   return (
-    <article className="group relative bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1.5 hover:bg-white/70 dark:hover:bg-neutral-800/60 hover:shadow-xl flex flex-col h-full">
+    <article className="group relative bg-white/50 dark:bg-neutral-900/50 backdrop-blur-md border border-white/60 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/90 dark:hover:border-white/20 hover:bg-white/70 dark:hover:bg-neutral-800/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] flex flex-col h-full">
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-neutral-100/60 dark:bg-neutral-800/60 rounded-xl m-2">
         <img 
@@ -57,7 +57,7 @@ export function ProductCard({
           
           <button 
             onClick={() => onAction?.(product.id)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium transition-all duration-150 ease-out hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-[0.98] shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium transition-all duration-150 ease-out hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-[0.97] shadow-sm"
           >
             {actionLabel}
             <ArrowRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />

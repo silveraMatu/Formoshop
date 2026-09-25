@@ -19,6 +19,10 @@
   --glass-border-soft: rgb(0 0 0 / 5%);
   --glass-shadow: 0 8px 30px rgb(0 0 0 / 6%);
   --glass-shadow-strong: 0 8px 32px rgb(0 0 0 / 12%);
+  --glass-shadow-float: 0 20px 50px rgb(0 0 0 / 8%);
+  --glass-shadow-float-strong: 0 24px 60px rgb(0 0 0 / 12%);
+  --glass-inner-highlight: inset 0 1px 1px rgb(255 255 255 / 60%);
+  --glass-border-bright: rgb(255 255 255 / 60%);
   --glass-blur: 20px;
   --glass-blur-strong: 32px;
   --glass-saturate: 150%;
@@ -47,6 +51,10 @@
   --glass-border-soft: rgb(255 255 255 / 10%);
   --glass-shadow: 0 8px 32px rgb(0 0 0 / 37%);
   --glass-shadow-strong: 0 8px 32px rgb(0 0 0 / 50%);
+  --glass-shadow-float: 0 20px 50px rgb(0 0 0 / 40%);
+  --glass-shadow-float-strong: 0 24px 60px rgb(0 0 0 / 50%);
+  --glass-inner-highlight: inset 0 1px 1px rgb(255 255 255 / 8%);
+  --glass-border-bright: rgb(255 255 255 / 10%);
 }
 
 html,
@@ -59,9 +67,11 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgb(8 168 232 / 10%), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%, rgb(8 121 176 / 8%), transparent 55%),
-    linear-gradient(135deg, #f4f6f8 0%, #e9edf1 50%, #f4f6f8 100%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(199 210 254 / 40%), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgb(224 231 255 / 35%), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 0% 100%, rgb(186 230 253 / 30%), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgb(233 213 255 / 25%), transparent 60%),
+    linear-gradient(180deg, #fafaf9 0%, #f5f5f4 40%, #e7e5e4 100%);
   background-attachment: fixed;
   color: var(--ink);
   transition: background-color 180ms ease, color 180ms ease;
@@ -69,9 +79,11 @@ body {
 
 :root[data-theme="dark"] body {
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgb(29 186 242 / 10%), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%, rgb(115 216 255 / 6%), transparent 55%),
-    linear-gradient(135deg, #050a10 0%, #09131d 50%, #050a10 100%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(76 29 149 / 25%), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgb(30 58 138 / 20%), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 0% 100%, rgb(15 23 42 / 60%), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgb(88 28 135 / 18%), transparent 60%),
+    linear-gradient(180deg, #0a0a0b 0%, #111114 40%, #0d0d10 100%);
   background-attachment: fixed;
 }
 
@@ -83,16 +95,16 @@ body {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border-bright);
+  box-shadow: var(--glass-shadow), var(--glass-inner-highlight);
 }
 
 .glass-panel {
   background: var(--glass-bg-strong);
   backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow-strong);
+  border: 1px solid var(--glass-border-bright);
+  box-shadow: var(--glass-shadow-float), var(--glass-inner-highlight);
 }
 
 .glass-subtle {
@@ -204,16 +216,20 @@ input {
   justify-content: center;
   padding: 24px;
   background:
-    radial-gradient(900px 500px at 15% 0%, rgb(8 168 232 / 12%), transparent 60%),
-    radial-gradient(700px 400px at 100% 100%, rgb(8 121 176 / 10%), transparent 55%),
-    linear-gradient(135deg, #f4f6f8 0%, #e9edf1 50%, #f4f6f8 100%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(199 210 254 / 45%), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgb(224 231 255 / 40%), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 0% 100%, rgb(186 230 253 / 35%), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgb(233 213 255 / 30%), transparent 60%),
+    linear-gradient(180deg, #fafaf9 0%, #f5f5f4 40%, #e7e5e4 100%);
 }
 
 :root[data-theme="dark"] .auth-layout {
   background:
-    radial-gradient(900px 500px at 15% 0%, rgb(29 186 242 / 12%), transparent 60%),
-    radial-gradient(700px 400px at 100% 100%, rgb(115 216 255 / 8%), transparent 55%),
-    linear-gradient(135deg, #050a10 0%, #09131d 50%, #050a10 100%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgb(76 29 149 / 30%), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgb(30 58 138 / 25%), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 0% 100%, rgb(15 23 42 / 65%), transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgb(88 28 135 / 22%), transparent 60%),
+    linear-gradient(180deg, #0a0a0b 0%, #111114 40%, #0d0d10 100%);
 }
 
 .auth-layout__toolbar {
@@ -223,13 +239,13 @@ input {
 }
 
 .app-card {
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-bright);
   border-radius: 24px;
   background: var(--glass-bg-strong);
   backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   color: var(--ink);
-  box-shadow: var(--glass-shadow-strong);
+  box-shadow: var(--glass-shadow-float), var(--glass-inner-highlight);
 }
 
 .app-card__title {
@@ -323,14 +339,14 @@ input {
   height: 40px;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-bright);
   border-radius: 999px;
   background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   color: var(--ink);
   cursor: pointer;
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--glass-shadow), var(--glass-inner-highlight);
   transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 

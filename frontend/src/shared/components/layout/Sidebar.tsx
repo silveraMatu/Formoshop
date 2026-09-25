@@ -25,7 +25,7 @@ export function Sidebar() {
     <>
       {/* Mobile Hamburger */}
       <button 
-        className="md:hidden fixed top-4 left-4 z-50 p-2.5 rounded-xl glass-surface text-neutral-800 dark:text-neutral-100 hover:bg-white/80 dark:hover:bg-white/10 transition-all duration-200 ease-out active:scale-95"
+        className="md:hidden fixed top-4 left-4 z-50 p-2.5 rounded-xl glass-surface text-neutral-800 dark:text-neutral-100 hover:bg-white/80 dark:hover:bg-white/10 transition-all duration-200 ease-out active:scale-[0.97]"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -41,8 +41,8 @@ export function Sidebar() {
 
       {/* Sidebar Content */}
       <aside 
-        className={`fixed md:sticky top-0 left-0 h-screen w-72 flex flex-col transition-all duration-300 ease-out z-40 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl backdrop-saturate-150 border-r border-black/5 dark:border-white/10 ${
-          isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
+        className={`fixed md:sticky top-0 left-0 h-screen w-72 flex flex-col transition-all duration-300 ease-out z-40 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl backdrop-saturate-150 border-r border-white/60 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] ${
+          isOpen ? "translate-x-0 shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)]" : "-translate-x-full md:translate-x-0"
         }`}
       >
         <div className="p-8 flex items-center gap-3">
@@ -85,7 +85,7 @@ export function Sidebar() {
         </nav>
 
         <div className="p-4 border-t border-black/5 dark:border-white/10">
-          <button className="flex items-center gap-4 px-4 py-3 w-full rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-red-500/10 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-150 ease-out group active:scale-[0.98]">
+          <button className="flex items-center gap-4 px-4 py-3 w-full rounded-xl text-neutral-600 dark:text-neutral-400 hover:bg-red-500/10 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-150 ease-out group active:scale-[0.97]">
             <LogOut size={22} className="transition-transform duration-300 ease-out group-hover:-translate-x-0.5" />
             <span className="font-medium">Cerrar Sesión</span>
           </button>

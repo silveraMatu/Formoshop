@@ -19,10 +19,11 @@
   flex-direction: column;
   align-items: stretch;
   padding: 18px 16px;
-  border-right: 1px solid var(--glass-border-soft);
+  border-right: 1px solid var(--glass-border-bright);
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: var(--glass-inner-highlight);
 }
 
 .dashboard-sidebar--menu-open {
@@ -204,11 +205,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px dashed var(--glass-border);
+  border: 1px dashed var(--glass-border-bright);
   border-radius: 16px;
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
+  box-shadow: var(--glass-inner-highlight);
 }
 
 .dashboard-catalog__empty svg {
@@ -233,20 +235,21 @@
 
 .product-card {
   overflow: hidden;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-bright);
   border-radius: 16px;
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   color: var(--ink);
-  box-shadow: var(--glass-shadow);
-  transition: background-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+  box-shadow: var(--glass-shadow), var(--glass-inner-highlight);
+  transition: background-color 300ms ease, box-shadow 300ms ease, transform 300ms ease, border-color 300ms ease;
 }
 
 .product-card:hover {
   background: var(--glass-bg);
-  box-shadow: var(--glass-shadow-strong);
-  transform: translateY(-2px);
+  border-color: var(--glass-border-bright);
+  box-shadow: var(--glass-shadow-float), var(--glass-inner-highlight);
+  transform: translateY(-4px);
 }
 
 .product-card__image {
@@ -481,14 +484,14 @@
 .dashboard-modal {
   width: 100%;
   max-width: 460px;
-  padding: 26px;
-  border: 1px solid var(--glass-border);
+  padding: 32px;
+  border: 1px solid var(--glass-border-bright);
   border-radius: 24px;
   background: var(--glass-bg-strong);
   backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
   color: var(--ink);
-  box-shadow: var(--glass-shadow-strong);
+  box-shadow: var(--glass-shadow-float), var(--glass-inner-highlight);
 }
 
 .dashboard-modal__header {
@@ -545,8 +548,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px;
-  border: 1px solid var(--glass-border);
+  padding: 20px;
+  border: 1px solid var(--glass-border-bright);
   border-radius: 16px;
   background: var(--glass-bg-subtle);
   backdrop-filter: blur(12px) saturate(150%);
@@ -554,17 +557,19 @@
   color: var(--ink);
   text-align: center;
   cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+  box-shadow: var(--glass-inner-highlight);
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
 }
 
 .dashboard-item-option:hover {
-  border-color: var(--glass-border);
+  border-color: var(--glass-border-bright);
   background: var(--glass-bg);
+  box-shadow: var(--glass-shadow-float), var(--glass-inner-highlight);
   transform: translateY(-3px);
 }
 
 .dashboard-item-option:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .dashboard-item-option span {
