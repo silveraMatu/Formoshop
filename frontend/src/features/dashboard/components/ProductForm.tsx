@@ -1,12 +1,13 @@
-import { useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
+import { useRef, useState, useEffect, type ChangeEvent, type DragEvent, type FormEvent } from "react";
 import { X, Wand2, Loader2, ImagePlus, Trash2 } from "lucide-react";
-import type { CreateProductInput, ProductStatus } from "../types/product";
+import type { CreateProductInput, ProductStatus, Product } from "../types/product";
 import { generateProductMetadata } from "../api/products";
 import { LocationPickerMap, type LocationValue } from "@/shared/components/LocationPickerMap";
 
 interface ProductFormProps {
   onClose: () => void;
   onSubmit: (input: CreateProductInput) => Promise<void>;
+  initialData?: Product;
 }
 
 const initialForm = {
@@ -19,13 +20,25 @@ const initialForm = {
   tag: "",
 };
 
-export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
-  const [form, setForm] = useState(initialForm);
+export function ProductForm({ onClose, onSubmit, initialData }: ProductFormProps) {
+  const [form, setForm] = useState(() => initialData ? {
+    title: initialData.title,
+    price: String(initialData.price),
+    status: initialData.status as ProductStatus,
+    stock: initialData.stock !== undefined ? String(initialData.stock) : "",
+    ubicacion: initialData.ubicacion || "",
+    description: initialData.description || "",
+    tag: initialData.tag ? initialData.tag.join(", ") : "",
+  } : initialForm);
   const [saving, setSaving] = useState(false);
   const [isLoadingIA, setIsLoadingIA] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [location, setLocation] = useState<LocationValue | null>(null);
-  const [imageDataUrl, setImageDataUrl] = useState<string>("");
+  const [location, setLocation] = useState<LocationValue | null>(() => initialData?.lat && initialData?.lng ? {
+    lat: initialData.lat,
+    lng: initialData.lng,
+    address: initialData.ubicacion
+  } : null);
+  const [imageDataUrl, setImageDataUrl] = useState<string>(() => initialData?.image || "");
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -252,7 +265,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
           <LocationPickerMap value={location} onChange={setLocation} />
 
           <label>Descripción<textarea value={form.description} onChange={(event) => updateField("description", event.target.value)} placeholder="Detalle del producto" rows={3} disabled={isLoadingIA} /></label>
-          <label>Etiquetas<input value={form.tag} onChange={(event) => updateField("tag", event.target.value)} placeholder="periféricos, gaming" disabled={isLoadingIA} /></label>
+          <label>Etiquetas<input value={form.tag} onChange={(event) => updateField("tag", event.target.value)} placeholder="freco,cajon" disabled={isLoadingIA} /></label>
           
           {error && <p className="dashboard-product-form__error text-red-500">{error}</p>}
           

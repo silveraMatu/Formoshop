@@ -4,7 +4,7 @@ export const generateMetadata = async (req: Request, res: Response, next: NextFu
     try {
         const { imagenBase64 } = req.body;
         
-        const n8nWebhookUrl = 'http://localhost:5678/webhook-test/generar-producto';
+        const n8nWebhookUrl = 'http://localhost:5678/webhook/generar-producto';
 
         const response = await fetch(n8nWebhookUrl, {
             method: 'POST',

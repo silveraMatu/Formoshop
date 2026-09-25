@@ -6,9 +6,11 @@ interface ProductGridProps {
   products: Product[];
   loading: boolean;
   error: string | null;
+  onEdit?: (id: string | number) => void;
+  onDelete?: (id: string | number) => void;
 }
 
-export function ProductGrid({ products, loading, error }: ProductGridProps) {
+export function ProductGrid({ products, loading, error, onEdit, onDelete }: ProductGridProps) {
   if (loading) return <p className="dashboard-catalog__feedback">Cargando productos...</p>;
   if (error) return <p className="dashboard-catalog__feedback dashboard-catalog__feedback--error">{error}</p>;
   if (!products.length) {
@@ -28,6 +30,8 @@ export function ProductGrid({ products, loading, error }: ProductGridProps) {
           key={product.id} 
           product={product} 
           hideAction={true} 
+          onEdit={onEdit}
+          onDelete={onDelete}
         />
       ))}
     </div>

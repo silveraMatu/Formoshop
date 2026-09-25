@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Leaf, MapPin, Package, CheckCircle } from "lucide-react";
+import { ArrowRight, Leaf, MapPin, Package, CheckCircle, Pencil, Trash2 } from "lucide-react";
 import { ProductDetailsModal } from "./ProductDetailsModal";
 
 export interface BaseProduct {
@@ -24,13 +24,17 @@ interface ProductCardProps {
   onAction?: (id: string | number) => void;
   actionLabel?: string;
   hideAction?: boolean;
+  onEdit?: (id: string | number) => void;
+  onDelete?: (id: string | number) => void;
 }
 
 export function ProductCard({ 
   product, 
   onAction,
   actionLabel = "Ver detalles",
-  hideAction = false
+  hideAction = false,
+  onEdit,
+  onDelete
 }: ProductCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -102,18 +106,42 @@ export function ProductCard({
               ${Number(product.price).toFixed(2)}
             </span>
             
-            {!hideAction && (
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onAction?.(product.id);
-                }}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium transition-all duration-150 ease-out hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-[0.97] shadow-sm"
-              >
-                {actionLabel}
-                <ArrowRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
-              </button>
-            )}
+            <div className="flex gap-2">
+              {onEdit && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEdit(product.id);
+                  }}
+                  className="p-1.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 transition-colors"
+                >
+                  <Pencil size={18} />
+                </button>
+              )}
+              {onDelete && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(product.id);
+                  }}
+                  className="p-1.5 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 transition-colors"
+                >
+                  <Trash2 size={18} />
+                </button>
+              )}
+              {!hideAction && (
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAction?.(product.id);
+                  }}
+                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium transition-all duration-150 ease-out hover:bg-neutral-800 dark:hover:bg-neutral-200 active:scale-[0.97] shadow-sm"
+                >
+                  {actionLabel}
+                  <ArrowRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </article>

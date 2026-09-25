@@ -50,7 +50,7 @@ export function ChatWidget() {
       {isOpen && (
         <div className="w-80 h-[420px] rounded-3xl flex flex-col overflow-hidden mb-4 bg-white/75 dark:bg-neutral-950/70 backdrop-blur-2xl backdrop-saturate-150 border border-white/60 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
           <div className="p-4 font-semibold flex justify-between items-center border-b border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-50">
-            <span>Asistente PAIPPA</span>
+            <span>Asistente</span>
             <button onClick={() => setIsOpen(false)} className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 text-xl leading-none transition-colors duration-150 active:scale-95">&times;</button>
           </div>
           

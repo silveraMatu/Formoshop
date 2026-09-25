@@ -29,5 +29,20 @@ export function useProducts() {
     return product;
   };
 
-  return { products, loading, error, addProduct, reload: loadProducts };
+  const editProduct = async (id: string | number, input: Partial<CreateProductInput>) => {
+    const { updateProduct } = await import("../api/products");
+    const updatedProduct = await updateProduct(id, input);
+    setProducts((currentProducts) =>
+      currentProducts.map((p) => (p.id === id ? updatedProduct : p))
+    );
+    return updatedProduct;
+  };
+
+  const removeProduct = async (id: string | number) => {
+    const { deleteProduct } = await import("../api/products");
+    await deleteProduct(id);
+    setProducts((currentProducts) => currentProducts.filter((p) => p.id !== id));
+  };
+
+  return { products, loading, error, addProduct, editProduct, removeProduct, reload: loadProducts };
 }

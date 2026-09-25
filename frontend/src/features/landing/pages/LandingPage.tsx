@@ -120,7 +120,7 @@ export function LandingPage() {
               href="#productores"
               className="px-4 py-2 rounded-full text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:bg-black/5 dark:hover:bg-white/10 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors duration-150"
             >
-              Productores PAIPPA
+              Productores
             </a>
           </div>
 
@@ -157,15 +157,15 @@ export function LandingPage() {
         <div className="max-w-6xl mx-auto text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] text-neutral-700 dark:text-neutral-200">
             <Leaf size={14} className="text-emerald-500" />
-            Productos locales y frescos directo del productor
+            Productos locales directo del productor
           </span>
 
           <h1 className="mt-8 text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05]">
             <span className="block text-neutral-900 dark:text-neutral-50">
-              Del campo formoseño
+              Del formoseño
             </span>
             <span className="block bg-gradient-to-r from-emerald-600 via-teal-500 to-indigo-500 dark:from-emerald-400 dark:via-teal-300 dark:to-indigo-400 bg-clip-text text-transparent">
-              directo a tu mesa
+              directo a tus manos
             </span>
           </h1>
 

@@ -23,6 +23,21 @@ export async function createProduct(
   return response.data.data;
 }
 
+export async function updateProduct(
+  id: string | number,
+  input: Partial<CreateProductInput>,
+): Promise<Product> {
+  const response = await apiClient.patch<{ success: boolean, data: Product }>(
+    `/products/${id}`,
+    input,
+  );
+  return response.data.data;
+}
+
+export async function deleteProduct(id: string | number): Promise<void> {
+  await apiClient.delete(`/products/${id}`);
+}
+
 // --- NUEVA INTEGRACION ---
 
 export interface AIProductMetadataResponse {
