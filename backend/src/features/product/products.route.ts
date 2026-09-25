@@ -4,21 +4,18 @@ import createProductRouter from "./create-products/createProduct.routes.ts";
 import getProductByIdRouter from "./get-product-by-id/getProductById.routes.ts";
 import generateMetadataRoutes from './generate-metadata/generateMetadata.routes.ts';
 import { getProductsByOwnerRouter } from "./get-product-by-owner/getProductByOwner.routes.ts";
-import { authenticateToken } from "../../shared/Middlewares/auth.middleware.ts";
 
 export const productRouter = Router()
 
 // 1. ZONA PÚBLICA (No piden token)
-// Liberamos el catálogo general y la vista de producto individual
+// Catálogo general y vista de producto individual
 productRouter.use(getProductsRouter)
 productRouter.use(getProductByIdRouter)
 
-// 2. CANDADO DE SEGURIDAD
-// Todo lo que esté de acá para abajo va a exigir inicio de sesión
-productRouter.use(authenticateToken);
-
-// 3. ZONA PRIVADA
-// Solo los dueños logueados pueden crear o ver sus propios productos
+// 2. ZONA PRIVADA (cada router aplica authenticateToken + authorizeRoles)
+// - createProductRouter: PRODUCER | ADMIN
+// - getProductsByOwnerRouter: PRODUCER | ADMIN
+// - generateMetadataRoutes: PRODUCER | ADMIN
 productRouter.use(createProductRouter)
 productRouter.use(getProductsByOwnerRouter)
 productRouter.use(generateMetadataRoutes);
