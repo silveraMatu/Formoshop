@@ -8,9 +8,12 @@ export const createToken = (userId: number, email: string): string => {
     email,
   };
 
-  return jwt.sign(payload, SECRET, {
+  const token = jwt.sign(payload, SECRET, {
     expiresIn: '1h',
   });
+
+  console.log(token);
+  return token
 };
 
 export const verifyToken = (token: string) => {
