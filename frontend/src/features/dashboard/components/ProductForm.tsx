@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { X, Wand2, Loader2 } from "lucide-react"; 
 import type { CreateProductInput, ProductStatus } from "../types/product";
 import { generateProductMetadata } from "../api/products";
+import { LocationPicker, type LocationValue } from "./LocationPicker";
 interface ProductFormProps {
   onClose: () => void;
   onSubmit: (input: CreateProductInput) => Promise<void>;
@@ -24,6 +25,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
   const [saving, setSaving] = useState(false);
   const [isLoadingIA, setIsLoadingIA] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [location, setLocation] = useState<LocationValue | null>(null);
 
   const updateField = (field: keyof typeof initialForm, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -84,6 +86,11 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
       return;
     }
 
+    if (!location) {
+      setError("Seleccioná la ubicación en el mapa.");
+      return;
+    }
+
     setSaving(true);
     try {
       await onSubmit({
@@ -93,6 +100,9 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
         status: form.status,
         stock: Number(form.stock),
         ubicacion: form.ubicacion.trim(),
+        lat: location.lat,
+        lng: location.lng,
+        ...(location.address ? { address: location.address } : {}),
         ...(form.image.trim() ? { image: form.image.trim() } : {}),
         ...(form.description.trim() ? { description: form.description.trim() } : {}),
         ...(tags.length ? { tag: tags } : {}),
@@ -158,7 +168,9 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
             </label>
           </div>
           <label>Ubicación<input required value={form.ubicacion} onChange={(event) => updateField("ubicacion", event.target.value)} placeholder="Av. Italia 123" disabled={isLoadingIA} /></label>
-          
+
+          <LocationPicker value={location} onChange={setLocation} />
+
           <label>Imagen (URL)<input type="url" value={form.image} onChange={(event) => updateField("image", event.target.value)} placeholder="https://example.com/producto.jpg" disabled={isLoadingIA} /></label>
           
           <label>Descripción<textarea value={form.description} onChange={(event) => updateField("description", event.target.value)} placeholder="Detalle del producto" rows={3} disabled={isLoadingIA} /></label>

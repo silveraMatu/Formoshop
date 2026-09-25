@@ -24,6 +24,9 @@ export interface IProductEntity {
   stock: number;
   tag?: string[] | null;
   ubicacion: string;
+  lat?: number | null;
+  lng?: number | null;
+  address?: string | null;
 }
 
 @Entity('products')
@@ -67,6 +70,29 @@ export class Product implements IProductEntity {
 
   @Column({ type: 'varchar', length: 255 })
   ubicacion!: string;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 7,
+    nullable: true,
+    default: null,
+    transformer: numericTransformer,
+  })
+  lat?: number | null;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 7,
+    nullable: true,
+    default: null,
+    transformer: numericTransformer,
+  })
+  lng?: number | null;
+
+  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
+  address?: string | null;
 
   @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })

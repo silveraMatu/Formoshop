@@ -11,6 +11,9 @@ export interface Product {
   description?: string | null;
   tag?: string[] | null;
   ubicacion: string;
+  lat?: number | null;
+  lng?: number | null;
+  address?: string | null;
   isPaippa?: boolean; // <-- Listo el error
 }
 
@@ -24,6 +27,9 @@ export interface CreateProductInput {
   description?: string;
   tag?: string[];
   ubicacion: string;
+  lat?: number;
+  lng?: number;
+  address?: string;
   isPaippa?: boolean; // <-- Para el formulario de carga
 }
 

@@ -11,6 +11,9 @@ export const productSchema = z.object({
   description: z.string().nullish(),
   tag: z.array(z.string()).nullish(),
   ubicacion: z.string().min(1, 'La ubicación es requerida'),
+  lat: z.number().min(-90).max(90).nullish(),
+  lng: z.number().min(-180).max(180).nullish(),
+  address: z.string().max(255).nullish(),
 });
 
 // Esquema para actualización (todos los campos opcionales)
