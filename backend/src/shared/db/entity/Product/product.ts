@@ -72,6 +72,6 @@ export class Product implements IProductEntity {
   @JoinColumn({ name: 'user_id' })
   user!: User;
 
-  @Column({ name: 'user_id' })
+  @Column({type:"int", name: 'user_id' })
   userId!: number;
 }
