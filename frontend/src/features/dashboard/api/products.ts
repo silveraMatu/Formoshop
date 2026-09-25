@@ -22,3 +22,23 @@ export async function createProduct(
   );
   return response.data.data;
 }
+
+// --- NUEVA INTEGRACION ---
+
+export interface AIProductMetadataResponse {
+  tituloSugerido?: string;
+  descripcionSugerida?: string;
+  precioEstimado?: number | string;
+  categoriaSugerida?: string;
+  etiquetas?: string[];
+}
+
+export async function generateProductMetadata(
+  imagenBase64: string
+): Promise<AIProductMetadataResponse> {
+  const response = await apiClient.post<AIProductMetadataResponse>(
+    "/products/generate-metadata", 
+    { imagenBase64 }
+  );
+  return response.data;
+}
