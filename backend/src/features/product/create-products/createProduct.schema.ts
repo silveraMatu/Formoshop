@@ -2,10 +2,17 @@ import { z } from 'zod';
 import { StatusEnum } from '../../../shared/db/entity/Product/product.ts';
 
 export const productSchema = z.object({
-  image: z.string().url('Debe ser una URL válida').nullish(),
+  // Acepta URL http(s) o data URL Base64 (data:image/...;base64,...)
+  image: z
+    .string()
+    .refine(
+      (value) =>
+        /^https?:\/\//i.test(value) || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(value),
+      'Debe ser una URL válida o una imagen en Base64',
+    )
+    .nullish(),
   title: z.string().min(1, 'El título es obligatorio'),
   price: z.number().nonnegative('El precio no puede ser negativo'),
-  category: z.array(z.number().int()).min(1, 'Debe incluir al menos una categoría'),
   status: z.nativeEnum(StatusEnum),
   stock: z.number().int().nonnegative('El stock debe ser un entero no negativo'),
   description: z.string().nullish(),

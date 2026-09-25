@@ -5,7 +5,6 @@ export interface Product {
   image?: string | null;
   title: string;
   price: number;
-  category: number[];
   status: ProductStatus;
   stock: number;
   description?: string | null;
@@ -21,7 +20,6 @@ export interface CreateProductInput {
   image?: string;
   title: string;
   price: number;
-  category: number[];
   status: ProductStatus;
   stock: number;
   description?: string;

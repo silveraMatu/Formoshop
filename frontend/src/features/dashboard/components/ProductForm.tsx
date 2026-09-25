@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from "react";
-import { X, Wand2, Loader2 } from "lucide-react"; 
+import { useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
+import { X, Wand2, Loader2, ImagePlus, Trash2 } from "lucide-react";
 import type { CreateProductInput, ProductStatus } from "../types/product";
 import { generateProductMetadata } from "../api/products";
 import { LocationPickerMap, type LocationValue } from "@/shared/components/LocationPickerMap";
+
 interface ProductFormProps {
   onClose: () => void;
   onSubmit: (input: CreateProductInput) => Promise<void>;
@@ -11,11 +12,9 @@ interface ProductFormProps {
 const initialForm = {
   title: "",
   price: "",
-  category: "",
   status: "Disponible" as ProductStatus,
   stock: "",
   ubicacion: "",
-  image: "",
   description: "",
   tag: "",
 };
@@ -26,22 +25,37 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
   const [isLoadingIA, setIsLoadingIA] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [location, setLocation] = useState<LocationValue | null>(null);
+  const [imageDataUrl, setImageDataUrl] = useState<string>("");
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const updateField = (field: keyof typeof initialForm, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  // --- logica de la ia ---
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const toBase64 = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (readerError) => reject(readerError);
+    });
+
+  // --- lógica unificada: preview + IA ---
+  const processImageFile = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setError("El archivo debe ser una imagen.");
+      return;
+    }
 
     setIsLoadingIA(true);
     setError(null);
 
     try {
-      const base64 = await toBase64(file);
-      const cleanBase64 = (base64 as string).split(',')[1];
+      const dataUrl = await toBase64(file);
+      setImageDataUrl(dataUrl);
+
+      const cleanBase64 = dataUrl.split(",")[1] ?? "";
       const aiData = await generateProductMetadata(cleanBase64);
 
       setForm((current) => ({
@@ -49,9 +63,8 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
         title: aiData.tituloSugerido || current.title,
         description: aiData.descripcionSugerida || current.description,
         price: aiData.precioEstimado ? aiData.precioEstimado.toString() : current.price,
-        tag: aiData.etiquetas ? aiData.etiquetas.join(', ') : current.tag,
+        tag: aiData.etiquetas ? aiData.etiquetas.join(", ") : current.tag,
       }));
-
     } catch (err) {
       console.error("Fallo la generación con IA:", err);
       setError("La IA no pudo procesar la imagen, pero podés cargar los datos a mano.");
@@ -60,29 +73,46 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
     }
   };
 
-  const toBase64 = (file: File) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+  const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) void processImageFile(file);
+    event.target.value = "";
+  };
+
+  const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const file = event.dataTransfer.files?.[0];
+    if (file) void processImageFile(file);
+  };
+
+  const handleDragOver = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+  };
+
+  const clearImage = () => {
+    setImageDataUrl("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
   // --------------------------------
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
-    const categories = form.category
-      .split(",")
-      .map((value) => Number(value.trim()))
-      .filter((value) => Number.isInteger(value) && value > 0);
     const tags = form.tag
       .split(",")
       .map((value) => value.trim())
       .filter(Boolean);
 
-    if (!form.title.trim() || !form.price || !form.stock || !form.ubicacion.trim() || categories.length === 0) {
-      setError("Completá título, precio, categoría, stock y ubicación.");
+    if (!form.title.trim() || !form.price || !form.stock || !form.ubicacion.trim()) {
+      setError("Completá título, precio, stock y ubicación.");
       return;
     }
 
@@ -96,14 +126,13 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
       await onSubmit({
         title: form.title.trim(),
         price: Number(form.price),
-        category: categories,
         status: form.status,
         stock: Number(form.stock),
         ubicacion: form.ubicacion.trim(),
         lat: location.lat,
         lng: location.lng,
         ...(location.address ? { address: location.address } : {}),
-        ...(form.image.trim() ? { image: form.image.trim() } : {}),
+        ...(imageDataUrl ? { image: imageDataUrl } : {}),
         ...(form.description.trim() ? { description: form.description.trim() } : {}),
         ...(tags.length ? { tag: tags } : {}),
       });
@@ -128,28 +157,80 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
           </button>
         </div>
 
-        {/* CONTENEDOR DE IA VISUAL */}
-        <div className="glass-subtle rounded-2xl p-4 mb-4 text-center border-dashed">
-          <label className="cursor-pointer flex flex-col items-center gap-2">
-            {isLoadingIA ? (
-              <>
-                <Loader2 size={24} className="animate-spin text-blue-500" />
-                <span className="text-blue-700 dark:text-blue-300 font-medium">La IA está analizando tu producto...</span>
-              </>
-            ) : (
-              <>
-                <Wand2 size={24} className="text-blue-500" />
-                <span className="text-blue-700 dark:text-blue-300 font-medium">Sube una foto de tu producto y autocompleta con Inteligencia Artificial</span>
-              </>
-            )}
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageUpload} 
-              className="hidden" 
-              disabled={isLoadingIA}
-            />
-          </label>
+        {/* DROPZONE DE IMAGEN + IA */}
+        <div className="glass-subtle rounded-2xl p-4 mb-4 border-dashed">
+          {imageDataUrl ? (
+            <div className="relative w-full overflow-hidden rounded-xl border border-white/40 dark:border-white/10">
+              <img
+                src={imageDataUrl}
+                alt="Vista previa del producto"
+                className="w-full h-48 object-cover"
+              />
+              {isLoadingIA && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/40 backdrop-blur-sm text-white">
+                  <Loader2 size={24} className="animate-spin" />
+                  <span className="text-sm font-medium">La IA está analizando tu producto...</span>
+                </div>
+              )}
+              <div className="absolute top-2 right-2 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="p-2 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm text-neutral-700 dark:text-neutral-200 hover:bg-white dark:hover:bg-neutral-900 transition-colors active:scale-95"
+                  aria-label="Cambiar imagen"
+                >
+                  <ImagePlus size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={clearImage}
+                  className="p-2 rounded-full bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm text-red-500 hover:bg-white dark:hover:bg-neutral-900 transition-colors active:scale-95"
+                  aria-label="Eliminar imagen"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <label
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              className={
+                "cursor-pointer flex flex-col items-center gap-2 rounded-xl border-2 border-dashed p-6 text-center transition-colors " +
+                (isDragging
+                  ? "border-blue-400 bg-blue-500/5"
+                  : "border-black/10 dark:border-white/15 hover:border-blue-400/60")
+              }
+            >
+              {isLoadingIA ? (
+                <>
+                  <Loader2 size={24} className="animate-spin text-blue-500" />
+                  <span className="text-blue-700 dark:text-blue-300 font-medium">
+                    La IA está analizando tu producto...
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Wand2 size={24} className="text-blue-500" />
+                  <span className="text-blue-700 dark:text-blue-300 font-medium">
+                    Arrastrá una foto o hacé clic para subirla
+                  </span>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                    La IA autocompletará título, descripción, precio y etiquetas
+                  </span>
+                </>
+              )}
+            </label>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileInput}
+            className="hidden"
+            disabled={isLoadingIA}
+          />
         </div>
 
         <form onSubmit={handleSubmit} className="dashboard-product-form__fields">
@@ -158,21 +239,16 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
             <label>Precio<input required min="0" step="0.01" type="number" value={form.price} onChange={(event) => updateField("price", event.target.value)} placeholder="120.50" disabled={isLoadingIA} /></label>
             <label>Stock<input required min="0" step="1" type="number" value={form.stock} onChange={(event) => updateField("stock", event.target.value)} placeholder="15" disabled={isLoadingIA} /></label>
           </div>
-          <div className="dashboard-product-form__row">
-            <label>Categorías (IDs)<input required value={form.category} onChange={(event) => updateField("category", event.target.value)} placeholder="1, 3" disabled={isLoadingIA} /></label>
-            <label>Estado
-              <select value={form.status} onChange={(event) => updateField("status", event.target.value)} disabled={isLoadingIA}>
-                <option value="Disponible">Disponible</option>
-                <option value="Agotado">Agotado</option>
-              </select>
-            </label>
-          </div>
+          <label>Estado
+            <select value={form.status} onChange={(event) => updateField("status", event.target.value)} disabled={isLoadingIA}>
+              <option value="Disponible">Disponible</option>
+              <option value="Agotado">Agotado</option>
+            </select>
+          </label>
           <label>Ubicación<input required value={form.ubicacion} onChange={(event) => updateField("ubicacion", event.target.value)} placeholder="Av. Italia 123" disabled={isLoadingIA} /></label>
 
           <LocationPickerMap value={location} onChange={setLocation} />
 
-          <label>Imagen (URL)<input type="url" value={form.image} onChange={(event) => updateField("image", event.target.value)} placeholder="https://example.com/producto.jpg" disabled={isLoadingIA} /></label>
-          
           <label>Descripción<textarea value={form.description} onChange={(event) => updateField("description", event.target.value)} placeholder="Detalle del producto" rows={3} disabled={isLoadingIA} /></label>
           <label>Etiquetas<input value={form.tag} onChange={(event) => updateField("tag", event.target.value)} placeholder="periféricos, gaming" disabled={isLoadingIA} /></label>
           

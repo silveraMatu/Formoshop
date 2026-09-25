@@ -18,7 +18,6 @@ export interface IProductEntity {
   image?: string | null;
   title: string;
   price: number;
-  category: number[];
   status: StatusEnum;
   description?: string | null;
   stock: number;
@@ -47,9 +46,6 @@ export class Product implements IProductEntity {
     transformer: numericTransformer,
   })
   price!: number;
-
-  @Column({ type: 'int', array: true })
-  category!: number[];
 
   @Column({
     type: 'enum',
