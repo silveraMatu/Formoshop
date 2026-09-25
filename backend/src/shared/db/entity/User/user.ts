@@ -19,9 +19,10 @@ export class User implements IUserEntity {
   @Column({ type: "varchar", unique: true })
   email!: string;
 
-  @Column({type: "varchar"})
+  @Column({ type: "varchar"})
   password_hash!: string;
 
   @OneToMany(() => Product, (product) => product.user)
   products!: Product[];
 }
+

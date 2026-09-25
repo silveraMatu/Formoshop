@@ -1,4 +1,4 @@
-import { Router } from 'express';
+    import { Router } from 'express';
 import { getProductById } from './getProductById.controller.ts';
 
 const getProductByIdRouter = Router();
