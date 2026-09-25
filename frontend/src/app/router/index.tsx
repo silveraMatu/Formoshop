@@ -6,9 +6,11 @@ import { RegisterPage } from "@/features/auth/pages/RegisterPage";
 import { DashboardPage } from "@/features/dashboard/pages/DashboardPage";
 import { AdminDashboard } from "@/features/admin/pages/AdminDashboard";
 import { PublicCatalog } from "@/features/dashboard/pages/PublicCatalog"; 
+import { LandingPage } from "@/features/landing/pages/LandingPage";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <PublicCatalog /> },
+  { path: "/", element: <LandingPage /> },
+  { path: "/catalogo", element: <PublicCatalog /> },
   {
     element: <AuthLayout />,
     children: [
