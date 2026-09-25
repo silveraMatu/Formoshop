@@ -6,7 +6,6 @@ interface IUserEntity {
   name: string;
   email: string;
   password_hash: string;
-  isPaippaVerified: boolean;
 }
 
 @Entity()
@@ -23,13 +22,7 @@ export class User implements IUserEntity {
   @Column({ type: "varchar"})
   password_hash!: string;
 
-<<<<<<< HEAD
-    @Column({ type: "boolean", default: false })
-    isPaippaVerified!: boolean;
-
-=======
   @OneToMany(() => Product, (product) => product.user)
   products!: Product[];
->>>>>>> dev-matu
 }
 

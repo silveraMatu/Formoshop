@@ -68,15 +68,10 @@ export class Product implements IProductEntity {
   @Column({ type: 'varchar', length: 255 })
   ubicacion!: string;
 
-<<<<<<< HEAD
-  @Column({ type: 'varchar', default: 'vendor' })
-  role!: string; // Podrá ser 'vendor' o 'paippa_admin'
-=======
   @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user!: User;
 
-  @Column({ name: 'user_id' })
+  @Column({name: 'user_id'})
   userId!: number;
->>>>>>> dev-matu
 }
