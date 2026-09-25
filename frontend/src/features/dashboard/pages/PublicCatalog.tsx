@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, ShoppingCart, CheckCircle, Package, X, Trash2 } from "lucide-react";
+import { Search, ShoppingCart, Package, X, Trash2 } from "lucide-react";
 import type { Product } from "@/features/dashboard/types/product";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
 import { CartProvider, useCart } from "../hooks/CartContext"; 

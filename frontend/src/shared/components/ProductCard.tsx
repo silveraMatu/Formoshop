@@ -1,5 +1,4 @@
 import { Card } from './Card';
-// Importamos el sello desde la ruta donde lo creaste
 import { PaippaBadge } from '../../features/auth/components/PaippaBadge';
 
 interface ProductCardProps {

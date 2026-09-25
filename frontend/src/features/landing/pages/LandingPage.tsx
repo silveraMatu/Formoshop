@@ -3,49 +3,13 @@ import {
   ArrowRight,
   BadgeCheck,
   Leaf,
-  MapPin,
-  ShieldCheck,
   Sparkles,
   Sprout,
-  Truck,
 } from "lucide-react";
 import { Card } from "@/shared/components/Card";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
-import { ProductCard } from "@/features/marketplace/components/ProductCard";
-import type { BaseProduct } from "@/features/marketplace/components/ProductCard";
-import heroImage from "@/assets/hero.png";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 
-const featuredProducts: BaseProduct[] = [
-  {
-    id: 1,
-    title: "Miel pura de monte",
-    price: 4500,
-    imageUrl: heroImage,
-    tags: ["Agroecológico", "Formosa"],
-  },
-  {
-    id: 2,
-    title: "Queso artesanal de cabra",
-    price: 6200,
-    imageUrl: heroImage,
-    tags: ["Agroecológico", "Local"],
-  },
-  {
-    id: 3,
-    title: "Cajón de verduras de estación",
-    price: 3800,
-    imageUrl: heroImage,
-    tags: ["Fresco", "Formosa"],
-  },
-  {
-    id: 4,
-    title: "Dulce de mamón casero",
-    price: 2900,
-    imageUrl: heroImage,
-    tags: ["Artesanal", "Local"],
-  },
-];
 
 const benefits = [
   {
@@ -171,14 +135,6 @@ export function LandingPage() {
             >
               Soy productor
             </Link>
-          </div>
-
-          {/* MOCKUP VENTANA macOS */}
-          <div className="mt-20 max-w-4xl mx-auto">
-            <div className="rounded-3xl overflow-hidden bg-white/75 dark:bg-neutral-950/70 backdrop-blur-2xl backdrop-saturate-150 border border-white/60 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
-              
-              
-            </div>
           </div>
         </div>
       </section>

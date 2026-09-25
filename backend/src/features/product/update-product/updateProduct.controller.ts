@@ -34,12 +34,10 @@ export const updateProductController = async (
     }
 
     const validatedData = updateProductSchema.parse(req.body);
-
-    // Actualizamos los campos
+   
     Object.assign(product, validatedData);
     
-    // Convertir arrays a json string si la BD lo requiere o guardarlo directamente
-    // (depende de cómo esté la entidad, en typeorm postgres `simple-array` lo maneja solo)
+
     await productRepo.save(product);
 
     res.status(200).json({ success: true, data: product });

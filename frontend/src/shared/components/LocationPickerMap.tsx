@@ -3,11 +3,11 @@ import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from "react-lea
 import L, { type LatLngExpression, type LeafletMouseEvent } from "leaflet";
 import { MapPin, Loader2, Search } from "lucide-react";
 
-// Centro por defecto: Formosa Capital, Argentina
+
 const FORMOSA_CENTER: LatLngExpression = [-26.1852, -58.1756];
 const FORMOSA_ZOOM = 13;
 
-// Viewbox aproximado de la provincia de Formosa (para Nominatim)
+
 const FORMOSA_VIEWBOX = "-62.5,-22.0,-57.5,-27.0";
 
 export interface LocationValue {

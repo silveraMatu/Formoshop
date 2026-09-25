@@ -53,7 +53,8 @@ export function DashboardPage() {
       try {
         await removeProduct(id);
         toast.success("Producto eliminado");
-      } catch (err) {
+      } catch (error) {
+        console.log(error);
         toast.error("Error al eliminar el producto");
       }
     }

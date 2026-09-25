@@ -1,15 +1,13 @@
 import type { Request, Response, NextFunction } from 'express';
 import { AppDataSource } from '../../../shared/db/index.ts'; //
-import { Product } from '../../../shared/db/entity/Product/product.ts'; //[cite: 2]
+import { Product } from '../../../shared/db/entity/Product/product.ts'; 
 
-// Tipamos la respuesta. Data y message son opcionales porque dependen de si se encuentra el producto.
 interface GetProductByIdResponse {
   success: boolean;
   data?: Product;
   message?: string;
 }
 
-// Tipamos req.params para que TypeScript sepa que recibimos un 'id' de tipo string
 export const getProductById = async (
   req: Request<{ id: string }>,
   res: Response<GetProductByIdResponse>,
@@ -29,10 +27,8 @@ export const getProductById = async (
 
     const productRepository = AppDataSource.getRepository(Product);
 
-    // Buscamos un único producto que coincida con el ID
     const product = await productRepository.findOneBy({ id: productId });
 
-    // Si no existe, cortamos la ejecución y enviamos un 404
     if (!product) {
       res.status(404).json({
         success: false,
@@ -41,7 +37,6 @@ export const getProductById = async (
       return; 
     }
 
-    // Si existe, devolvemos el producto
     res.status(200).json({
       success: true,
       data: product

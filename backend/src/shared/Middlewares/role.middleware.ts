@@ -2,11 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import type { UserRole } from '../db/entity/User/user.ts';
 
 /**
- * Middleware de autorización basado en roles (RBAC).
- * Debe usarse SIEMPRE después de `authenticateToken`.
- *
  * @example
- *   router.post('/', authenticateToken, authorizeRoles('PRODUCER', 'ADMIN'), controller);
  */
 export const authorizeRoles = (
   ...allowedRoles: Array<UserRole | `${UserRole}`>

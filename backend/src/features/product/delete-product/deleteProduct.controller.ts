@@ -25,7 +25,6 @@ export const deleteProductController = async (
       return;
     }
 
-    // Verifica que el dueño sea el usuario actual (a menos que sea ADMIN)
     if (product.userId !== userId && req.user!.role !== 'ADMIN') {
       res.status(403).json({ success: false, message: 'No tienes permisos para eliminar este producto' });
       return;

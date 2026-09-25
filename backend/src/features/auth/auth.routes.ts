@@ -11,7 +11,6 @@ export const authRouter = Router();
 authRouter.use('/auth', registerRouter);
 authRouter.use('/auth', loginRouter);
 
-// RUTAS DE SIMULACIÓN HACKATHON (La dejamos por si la necesitan)
 authRouter.patch('/auth/sync-paippa/:id', async (req, res) => {
   try {
     const userRepository = AppDataSource.getRepository(User);
@@ -32,11 +31,7 @@ authRouter.patch('/auth/sync-paippa/:id', async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Error conectando con PAIPPA" });
   }
-}); // <-- ACÁ FALTABA CERRAR ESTA RUTA
-
-// --- RUTAS DEL ACTOR PAIPPA (ADMIN) ---
-
-// 1. Ver lista de vendedores pendientes
+});
 authRouter.get(
   '/admin/pending-vendors',
   authenticateToken,
@@ -55,7 +50,6 @@ authRouter.get(
   },
 );
 
-// 2. El PAIPPA aprueba a un vendedor
 authRouter.patch(
   '/admin/verify/:id',
   authenticateToken,

@@ -8,7 +8,7 @@ export const validate = (schema: ZodSchema) => {
       req.body = await schema.parseAsync(req.body);
       next();
     } catch (error) {
-      // Envía el ZodError directamente al errorHandler global
+     
       next(error);
     }
   };

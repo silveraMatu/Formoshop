@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { StatusEnum } from '../../../shared/db/entity/Product/product.ts';
 
 export const productSchema = z.object({
-  // Acepta URL http(s) o data URL Base64 (data:image/...;base64,...)
   image: z
     .string()
     .refine(
@@ -23,7 +22,6 @@ export const productSchema = z.object({
   address: z.string().max(255).nullish(),
 });
 
-// Esquema para actualización (todos los campos opcionales)
 export const updateProductSchema = productSchema.partial();
 
 // Inferencia de tipos

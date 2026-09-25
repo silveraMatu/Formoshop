@@ -9,20 +9,15 @@ import deleteProductRouter from "./delete-product/deleteProduct.routes.ts";
 
 export const productRouter = Router()
 
-// 1. ZONA PÚBLICA (No piden token)
-// Catálogo general
+
 productRouter.use(getProductsRouter)
 
-// 2. ZONA PRIVADA (cada router aplica authenticateToken + authorizeRoles)
-// - createProductRouter: PRODUCER | ADMIN
-// - getProductsByOwnerRouter: PRODUCER | ADMIN
-// - generateMetadataRoutes: PRODUCER | ADMIN
+
 productRouter.use(createProductRouter)
 productRouter.use(getProductsByOwnerRouter)
 productRouter.use(generateMetadataRoutes);
 
-// 3. RUTAS CON PARÁMETROS DINÁMICOS
-// Se colocan al final para evitar colisiones (ej. /owner capturado por /:id)
+
 productRouter.use(getProductByIdRouter)
 productRouter.use(updateProductRouter)
 productRouter.use(deleteProductRouter)
