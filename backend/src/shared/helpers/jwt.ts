@@ -4,7 +4,7 @@ const SECRET = process.env.SECRET!;
 
 export const createToken = (userId: number, email: string): string => {
   const payload = {
-    userId,
+    id: userId,
     email,
   };
 
