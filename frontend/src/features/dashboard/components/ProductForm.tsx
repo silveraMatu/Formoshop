@@ -129,7 +129,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
             ) : (
               <>
                 <Wand2 size={24} style={{ color: '#3b82f6' }} />
-                <span style={{ color: '#1d4ed8', fontWeight: 500 }}>Sube una foto y autocompleta con nuestra IA</span>
+                <span style={{ color: '#1d4ed8', fontWeight: 500 }}>Sube una foto de tu producto y autocompleta con Inteligencia Artificial</span>
               </>
             )}
             <input 
@@ -143,7 +143,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
         </div>
 
         <form onSubmit={handleSubmit} className="dashboard-product-form__fields">
-          <label>Título<input required value={form.title} onChange={(event) => updateField("title", event.target.value)} placeholder="Teclado mecánico RGB" disabled={isLoadingIA} /></label>
+          <label>Título<input required value={form.title} onChange={(event) => updateField("title", event.target.value)} placeholder="Cajon de papas" disabled={isLoadingIA} /></label>
           <div className="dashboard-product-form__row">
             <label>Precio<input required min="0" step="0.01" type="number" value={form.price} onChange={(event) => updateField("price", event.target.value)} placeholder="120.50" disabled={isLoadingIA} /></label>
             <label>Stock<input required min="0" step="1" type="number" value={form.stock} onChange={(event) => updateField("stock", event.target.value)} placeholder="15" disabled={isLoadingIA} /></label>
@@ -157,7 +157,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
               </select>
             </label>
           </div>
-          <label>Ubicación<input required value={form.ubicacion} onChange={(event) => updateField("ubicacion", event.target.value)} placeholder="Depósito Central" disabled={isLoadingIA} /></label>
+          <label>Ubicación<input required value={form.ubicacion} onChange={(event) => updateField("ubicacion", event.target.value)} placeholder="Av. Italia 123" disabled={isLoadingIA} /></label>
           
           <label>Imagen (URL)<input type="url" value={form.image} onChange={(event) => updateField("image", event.target.value)} placeholder="https://example.com/producto.jpg" disabled={isLoadingIA} /></label>
           
