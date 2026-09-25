@@ -17,12 +17,17 @@ function loadGoogleMaps(apiKey: string): Promise<void> {
       return;
     }
 
+    const callbackName = "__googleMapsCallback";
+    (window as any)[callbackName] = () => {
+      resolve();
+      delete (window as any)[callbackName];
+    };
+
     const script = document.createElement("script");
     script.id = SCRIPT_ID;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=es&region=AR`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,marker&language=es&region=AR&loading=async&callback=${callbackName}`;
     script.async = true;
     script.defer = true;
-    script.onload = () => resolve();
     script.onerror = () => reject(new Error("Error cargando Google Maps"));
     document.head.appendChild(script);
   });
