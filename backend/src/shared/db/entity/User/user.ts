@@ -13,6 +13,7 @@ interface IUserEntity {
   email: string;
   password_hash: string;
   role: UserRole;
+  isPaippaVerified: boolean;
 }
 
 @Entity()
@@ -36,6 +37,9 @@ export class User implements IUserEntity {
     default: UserRole.CLIENT,
   })
   role!: UserRole;
+
+  @Column({ type: 'boolean', default: false })
+  isPaippaVerified!: boolean;
 
   @OneToMany(() => Product, (product) => product.user)
   products!: Product[];
