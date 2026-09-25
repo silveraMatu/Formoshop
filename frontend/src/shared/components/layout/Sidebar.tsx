@@ -9,17 +9,32 @@ import {
   LogOut
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import type { UserRole } from "@/features/auth/types";
+
+interface NavItem {
+  name: string;
+  icon: typeof LayoutDashboard;
+  path: string;
+  highlight?: boolean;
+  roles?: UserRole[];
+}
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: "Panel Principal", icon: LayoutDashboard, path: "/dashboard" },
-    { name: "Inventario", icon: Package, path: "/inventory" },
-    { name: "Generar Producto (IA)", icon: Wand2, path: "/generate", highlight: true },
+    { name: "Inventario", icon: Package, path: "/inventory", roles: ["PRODUCER", "ADMIN"] },
+    { name: "Generar Producto (IA)", icon: Wand2, path: "/generate", highlight: true, roles: ["PRODUCER", "ADMIN"] },
     { name: "Configuración", icon: Settings, path: "/settings" },
   ];
+
+  const visibleItems = navItems.filter(
+    (item) => !item.roles || (user && item.roles.includes(user.role)),
+  );
 
   return (
     <>
@@ -53,7 +68,7 @@ export function Sidebar() {
         </div>
 
         <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
-          {navItems.map((item) => {
+          {visibleItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
 

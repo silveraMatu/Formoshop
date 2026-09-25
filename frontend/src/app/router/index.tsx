@@ -20,10 +20,15 @@ export const router = createBrowserRouter([
   },
   {
     element: <ProtectedRoute />,
-    children: [
-      { path: "/dashboard", element: <DashboardPage /> },
-      { path: "/admin", element: <AdminDashboard /> },
-    ],
+    children: [{ path: "/dashboard", element: <DashboardPage /> }],
+  },
+  {
+    element: <ProtectedRoute allowedRoles={["PRODUCER", "ADMIN"]} />,
+    children: [{ path: "/generate", element: <DashboardPage /> }],
+  },
+  {
+    element: <ProtectedRoute allowedRoles={["ADMIN"]} />,
+    children: [{ path: "/admin", element: <AdminDashboard /> }],
   },
   { path: "*", element: <Navigate to="/login" replace /> },
 ]);
