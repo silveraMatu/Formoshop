@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react";
 import { X, Wand2, Loader2 } from "lucide-react"; 
 import type { CreateProductInput, ProductStatus } from "../types/product";
 import { generateProductMetadata } from "../api/products";
-import { LocationPicker, type LocationValue } from "./LocationPicker";
+import { LocationPickerMap, type LocationValue } from "@/shared/components/LocationPickerMap";
 interface ProductFormProps {
   onClose: () => void;
   onSubmit: (input: CreateProductInput) => Promise<void>;
@@ -169,7 +169,7 @@ export function ProductForm({ onClose, onSubmit }: ProductFormProps) {
           </div>
           <label>Ubicación<input required value={form.ubicacion} onChange={(event) => updateField("ubicacion", event.target.value)} placeholder="Av. Italia 123" disabled={isLoadingIA} /></label>
 
-          <LocationPicker value={location} onChange={setLocation} />
+          <LocationPickerMap value={location} onChange={setLocation} />
 
           <label>Imagen (URL)<input type="url" value={form.image} onChange={(event) => updateField("image", event.target.value)} placeholder="https://example.com/producto.jpg" disabled={isLoadingIA} /></label>
           
